@@ -1,24 +1,23 @@
 package model;
 
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 
 public class TypeMeteringDevice {
 
     private final StringProperty nameType;
     private final StringProperty facility;
+    private final IntegerProperty accuracy;
 
-    private final DoubleProperty accuracy;
-
-    TypeMeteringDevice(String nameType, String facility, Double accuracy){
+    TypeMeteringDevice(String nameType, String facility, Integer accuracy){
         this.nameType = new SimpleStringProperty(nameType);
         this.facility = new SimpleStringProperty(facility);
-        this.accuracy = new SimpleDoubleProperty(accuracy);
+        this.accuracy = new SimpleIntegerProperty(accuracy);
     }
 
-    TypeMeteringDevice(StringProperty nameType, StringProperty facility, DoubleProperty accuracy){
+    TypeMeteringDevice(StringProperty nameType, StringProperty facility, IntegerProperty accuracy){
         this(nameType.get(), facility.get(), accuracy.get());
     }
 
@@ -51,11 +50,11 @@ public class TypeMeteringDevice {
         return accuracy.get();
     }
 
-    public DoubleProperty getAccuracyProperty() {
+    public IntegerProperty getAccuracyProperty() {
         return accuracy;
     }
 
-    public void setAccuracy(Double newAccuracy){
+    public void setAccuracy(Integer newAccuracy){
         this.accuracy.set(newAccuracy);
     }
 }
