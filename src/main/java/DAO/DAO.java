@@ -1,8 +1,67 @@
 package DAO;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Driver;
+import model.Street;
+import model.TypeMeteringDevice;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class DAO {
+
+    private Connection driverManager;
+    private Statement statement;
+
+    public DAO(String url, String user, String password){
+        try {
+            this.driverManager = DriverManager.getConnection(url, user, password);
+            this.statement = driverManager.createStatement();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public DAO(){
+        this("jdbc:postgresql://localhost:5432/meteringDeviceAndStreet", "postgres", "Admin2022");
+    }
+
+    DAO(Connection driverManager){
+        this.driverManager = driverManager;
+    }
+
+    public ArrayList<Street> getStreets(){
+        ArrayList<Street> streets = new ArrayList<>();
+        try {
+
+            ResultSet resultQuery = statement.executeQuery("select * from street");
+            while(resultQuery.next()){
+                streets.add(new Street(
+                        resultQuery.getLong("id"),
+                        resultQuery.getString("region"),
+                        resultQuery.getString("city"),
+                        resultQuery.getString("name_street")
+                ));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return streets;
+    }
+
+    public ArrayList<String> getFacilities(){
+        ArrayList<String> facilities = new ArrayList<>();
+        try{
+            ResultSet resultSet = statement.executeQuery("select * from facility");
+            while(resultSet.next()){
+                facilities.add(resultSet.getString("name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return facilities;
+    }
+
+
+//    public ArrayList<TypeMeteringDevice> getTypesMeteringDevice(){
+//
+//    }
 
 }

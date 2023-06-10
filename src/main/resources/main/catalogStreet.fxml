@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CatalogStreetController">
    <children>
-      <VBox layoutY="9.0" prefHeight="211.0" prefWidth="531.0">
+      <VBox layoutY="9.0" prefHeight="211.0" prefWidth="594.0">
          <children>
-            <HBox prefHeight="35.0" prefWidth="354.0">
+            <HBox prefHeight="35.0" prefWidth="542.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Удалить" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Добавить" />
@@ -22,11 +21,12 @@
             </HBox>
             <ScrollPane hbarPolicy="NEVER" prefHeight="175.0" prefWidth="530.0" vbarPolicy="ALWAYS">
                <content>
-                  <TableView prefHeight="174.0" prefWidth="515.0">
+                  <TableView fx:id="tableStreet" prefHeight="174.0" prefWidth="578.0">
                     <columns>
-                      <TableColumn prefWidth="124.0" text="Область" />
-                      <TableColumn prefWidth="101.0" text="Город" />
-                        <TableColumn minWidth="0.0" prefWidth="289.0" text="Улица" />
+                        <TableColumn fx:id="id" prefWidth="75.0" text="id" />
+                      <TableColumn fx:id="region" prefWidth="124.0" text="Область" />
+                      <TableColumn fx:id="city" prefWidth="123.0" text="Город" />
+                        <TableColumn fx:id="street" minWidth="0.0" prefWidth="267.0" text="Улица" />
                     </columns>
                   </TableView>
                </content>

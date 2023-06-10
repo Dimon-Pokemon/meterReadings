@@ -21,6 +21,10 @@ public class TypeMeteringDevice {
         this(nameType.get(), facility.get(), accuracy.get());
     }
 
+    @Override
+    public String toString() {
+        return nameType.get();
+    }
 
     public String getNameType() {
         return nameType.get();
