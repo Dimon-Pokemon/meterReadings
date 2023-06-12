@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
@@ -14,7 +15,7 @@ public class CatalogStreetController {
     private TableView<Street> tableStreet;
 
     @FXML
-    private TableColumn<Street, Long> id;
+    private TableColumn<Street, Integer> id;
 
     @FXML
     private TableColumn<Street, String> region;
@@ -54,7 +55,7 @@ public class CatalogStreetController {
 
     @FXML
     private void initialize(){
-        id.setCellValueFactory(cellData -> cellData.getValue().getIdProperty().asObject());
+        id.setCellValueFactory(cellData -> new SimpleIntegerProperty(tableStreet.getItems().indexOf(cellData.getValue())+1).asObject());
         region.setCellValueFactory(cellData -> cellData.getValue().getRegionProperty());
         city.setCellValueFactory(cellData -> cellData.getValue().getCityProperty());
         street.setCellValueFactory(cellData -> cellData.getValue().getStreetNameProperty());
