@@ -82,6 +82,18 @@ public class DAO {
         }
     }
 
+    public void updateStreet(Long id, String region, String city, String street){
+        try{
+            statement.executeUpdate("""
+                    update street
+                    set region = '%s', city = '%s', name_street = '%s'
+                    where id = %d
+                    """.formatted(region, city, street, id));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<String> getFacilities(){
         ArrayList<String> facilities = new ArrayList<>();
         try{
@@ -96,8 +108,5 @@ public class DAO {
     }
 
 
-//    public ArrayList<TypeMeteringDevice> getTypesMeteringDevice(){
-//
-//    }
 
 }

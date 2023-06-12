@@ -85,7 +85,11 @@ public class MainApp extends Application{
         }
     }
 
-    public void showAddNewStreet(){
+    public void showAddNewStreetOrUpdateIt(){
+        showAddNewStreetOrUpdateIt("new", null);
+    }
+
+    public void showAddNewStreetOrUpdateIt(String mode, Street selectedStreet){
         try {
             FXMLLoader loader = loadResource("addNewStreet.fxml");
             addNewStreetLayout = (AnchorPane) loader.load();
@@ -93,6 +97,9 @@ public class MainApp extends Application{
             AddNewStreetOrUpdateItController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDao(dao);
+            if (mode.equals("UPDATE")) {
+                controller.setValueFromSelectedStreetForUpdate(selectedStreet);
+            }
 
             addNewStreetStage = new Stage();
 
@@ -111,6 +118,10 @@ public class MainApp extends Application{
 
     public DAO getDao(){
         return dao;
+    }
+
+    public void closeWindowAddNewStreetStage(){
+        this.addNewStreetStage.close();
     }
 
     public static void main(String args[]){

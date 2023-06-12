@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.Label;
 import main.MainApp;
 import model.Street;
 import DAO.DAO;
@@ -46,11 +45,11 @@ public class CatalogStreetController {
 
     @FXML
     private void addNewStreet(){
-        mainApp.showAddNewStreet();
+        mainApp.showAddNewStreetOrUpdateIt();
     }
     @FXML
-    private void updateStreet(){
-
+    private void editStreet(){
+        mainApp.showAddNewStreetOrUpdateIt("UPDATE", tableStreet.getSelectionModel().selectedItemProperty().getValue());
     }
 
     @FXML

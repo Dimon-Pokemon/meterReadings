@@ -39,6 +39,6 @@
             <ComboBox fx:id="city" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="167.0" layoutY="152.0" mnemonicParsing="false" onAction="#add" text="Добавить улицу" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.0" />
+      <Button fx:id="button" layoutX="167.0" layoutY="152.0" mnemonicParsing="false" onAction="#add" text="Добавить улицу" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.0" />
    </children>
 </AnchorPane>

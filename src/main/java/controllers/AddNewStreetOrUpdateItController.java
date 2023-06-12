@@ -1,9 +1,11 @@
 package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;
@@ -23,10 +25,13 @@ public class AddNewStreetOrUpdateItController {
     @FXML
     private TextField street;
 
+    @FXML
+    private Button button;
+
     private MainApp mainApp;
     private DAO dao;
-
     private ObservableList<Street> mainStreets;
+    private Street selectedStreetForUpdate;
 
     public AddNewStreetOrUpdateItController(){
     }
@@ -35,41 +40,91 @@ public class AddNewStreetOrUpdateItController {
     private void initialize(){
     }
 
-    public void add(){
-        Boolean flag = true;
-        for (int i = 0; i<mainStreets.size(); i++){
-            if (mainStreets.get(i).toString().equals("%s, %s, %s"
+    private boolean observableListHasNotDuplicateItem(ObservableList<Street> observableListWithStreet, Street street){
+        for (int i = 0; i<observableListWithStreet.size(); i++){
+            if(observableListWithStreet.get(i).toString().equals("%s, %s, %s"
                     .formatted(
-                            region.getSelectionModel().getSelectedItem(),
-                            city.getSelectionModel().getSelectedItem(),
-                            this.street.getText()))) {
-                flag = false;
-                break;
+                            street.getRegion(),
+                            street.getCity(),
+                            street.getStreetName()))) {
+                return false;
             }
         }
-        if (flag){
-            dao.addNewStreet(
-                    region.getSelectionModel().getSelectedItem(),
-                    city.getSelectionModel().getSelectedItem(),
-                    street.getText()
-            );
-            mainStreets.removeAll(mainStreets);
-            mainStreets.addAll(dao.getStreets());
+        return true;
+    }
+    private boolean observableListHasNotDuplicateItem(ObservableList<Street> observableListWithStreet){
+        for (int i = 0; i<observableListWithStreet.size(); i++){
+            if (observableListWithStreet.get(i).toString().equals("%s, %s, %s"
+                    .formatted(
+                            this.region.getSelectionModel().getSelectedItem(),
+                            this.city.getSelectionModel().getSelectedItem(),
+                            this.street.getText()))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-            Alert info = new Alert(Alert.AlertType.INFORMATION);
-            info.setTitle("Успех!");
-            info.setHeaderText("Улица успешно добавлена в справочнк улиц!");
-            info.setContentText(null);
-            info.showAndWait();
+    private void successfulInfoWindow(String title, String headerText){
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        info.setTitle(title);
+        info.setHeaderText(headerText);
+        info.setContentText(null);
+        info.showAndWait();
+    }
+
+    private void errorWindow(String title, String headerText){
+        Alert error = new Alert(Alert.AlertType.ERROR);
+        error.setTitle(title);
+        error.setHeaderText(headerText);
+        error.setContentText(null);
+
+        error.show();
+    }
+
+    @FXML
+    private void add(){
+        if (observableListHasNotDuplicateItem(this.mainStreets)){
+            this.dao.addNewStreet(
+                    this.region.getSelectionModel().getSelectedItem(),
+                    this.city.getSelectionModel().getSelectedItem(),
+                    this.street.getText()
+            );
+            this.mainStreets.removeAll(this.mainStreets);
+            this.mainStreets.addAll(this.dao.getStreets());
+
+            successfulInfoWindow("Успех!", "Улица успешно добавлена в справочнк улиц!");
 
             street.clear();
         } else{
-            Alert error = new Alert(Alert.AlertType.ERROR);
-            error.setTitle("Ошибка! Дубликат улицы.");
-            error.setHeaderText("Нельзя добавить улицу, так как запись с такой улицей уже существует в справочнике улиц!");
-            error.setContentText(null);
+            errorWindow(
+                    "Ошибка! Дубликат улицы.",
+                    "Нельзя добавить улицу, так как запись с такой улицей уже существует в справочнике улиц!"
+            );
+        }
+    }
 
-            error.show();
+    @FXML
+    private void update(){
+        if (observableListHasNotDuplicateItem(this.mainStreets)){
+            dao.updateStreet(
+                    selectedStreetForUpdate.getId(),
+                    this.region.getSelectionModel().getSelectedItem(),
+                    this.city.getSelectionModel().getSelectedItem(),
+                    this.street.getText()
+                    );
+
+            this.mainStreets.removeAll(this.mainStreets);
+            this.mainStreets.addAll(this.dao.getStreets());
+
+            successfulInfoWindow("Успех!", "Запись успешно обнавлена в справочнике");
+
+            this.mainApp.closeWindowAddNewStreetStage();
+        } else{
+            errorWindow(
+                    "Ошибка!",
+                    "Не удалось обновить запись в справочнике улиц - данная улица уже существует в справочнике."
+            );
         }
     }
 
@@ -93,5 +148,20 @@ public class AddNewStreetOrUpdateItController {
 
     public void setDao(DAO dao){
         this.dao = dao;
+    }
+
+    public void setValueFromSelectedStreetForUpdate(Street street){
+        this.selectedStreetForUpdate = street;
+        this.region.getSelectionModel().select(street.getRegion());
+        this.city.getSelectionModel().select(street.getCity());
+        this.street.setText(street.getStreetName());
+
+        this.button.setText("Изменить");
+        this.button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                update();
+            }
+        });
     }
 }

@@ -16,7 +16,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#deleteStreet" prefHeight="25.0" prefWidth="117.0" text="Удалить" />
                   <Button mnemonicParsing="false" onAction="#addNewStreet" prefHeight="25.0" prefWidth="117.0" text="Добавить" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Редактировать" />
+                  <Button mnemonicParsing="false" onAction="#editStreet" prefHeight="25.0" prefWidth="117.0" text="Редактировать" />
                </children>
             </HBox>
             <ScrollPane hbarPolicy="NEVER" prefHeight="175.0" prefWidth="530.0" vbarPolicy="NEVER">
