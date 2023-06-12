@@ -1,5 +1,6 @@
 package main;
 
+import controllers.AddNewStreetOrUpdateItController;
 import controllers.CatalogStreetController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,14 +14,15 @@ import DAO.DAO;
 import model.Street;
 
 import java.io.IOException;
-import java.util.Collection;
 
-public class EnteringReadings extends Application{
+public class MainApp extends Application{
 
     private Stage primaryStage;
     private Stage catalogStreetStage;
+    private Stage addNewStreetStage;
     private AnchorPane rootLayout;
     private AnchorPane catalogStreetLayout;
+    private AnchorPane addNewStreetLayout;
 
     private ObservableList<ReadingLog> readingsLog = FXCollections.observableArrayList();
     private ObservableList<Street> streets = FXCollections.observableArrayList();
@@ -41,13 +43,19 @@ public class EnteringReadings extends Application{
         this.primaryStage = primaryStage;
 
         setRootLayout();
-        showCatalogStreet();
+    }
+
+    private FXMLLoader loadResource(String url){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource(url));
+
+        return loader;
     }
 
     private void setRootLayout(){
         try{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(EnteringReadings.class.getResource("enteringReadings.fxml"));
+            FXMLLoader loader = loadResource("enteringReadings.fxml");
+//            loader.setLocation(MainApp.class.getResource("enteringReadings.fxml"));
             rootLayout = (AnchorPane) loader.load();
 
             Scene scene = new Scene(rootLayout);
@@ -60,14 +68,15 @@ public class EnteringReadings extends Application{
 
     public void showCatalogStreet(){
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(EnteringReadings.class.getResource("catalogStreet.fxml"));
+            FXMLLoader loader = loadResource("catalogStreet.fxml");
+//            loader.setLocation(MainApp.class.getResource("catalogStreet.fxml"));
             catalogStreetLayout = (AnchorPane) loader.load();
 
             CatalogStreetController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setDao(dao);
 
-            this.catalogStreetStage = new Stage();
+            catalogStreetStage = new Stage();
 
             Scene scene = new Scene(catalogStreetLayout);
             catalogStreetStage.setScene(scene);
@@ -77,23 +86,36 @@ public class EnteringReadings extends Application{
         }
     }
 
-    public EnteringReadings(){
-        DAO dao = new DAO();
+    public void showAddNewStreet(){
+        try {
+            FXMLLoader loader = loadResource("addNewStreet.fxml");
+            addNewStreetLayout = (AnchorPane) loader.load();
+
+            AddNewStreetOrUpdateItController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDao(dao);
+
+            addNewStreetStage = new Stage();
+
+            Scene scene = new Scene(addNewStreetLayout);
+            addNewStreetStage.setScene(scene);
+            addNewStreetStage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public MainApp(){
+        this.dao = new DAO();
         this.streets.addAll(dao.getStreets());
     }
 
-    public static void main(String args[]){
+    public DAO getDao(){
+        return dao;
+    }
 
-//        try{
-//            DAO dao = new DAO();
-//            ArrayList<Street> streets = dao.getStreets();
-//            for(int i = 0; i<streets.size(); i++){
-//                System.out.println(streets.get(i).toString());
-//            }
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
-        EnteringReadings enteringReadings = new EnteringReadings();
+    public static void main(String args[]){
+        MainApp mainApp = new MainApp();
         launch(args);
     }
 }

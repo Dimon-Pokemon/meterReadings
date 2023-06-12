@@ -46,6 +46,42 @@ public class DAO {
         return streets;
     }
 
+    public void deleteStreet(Long id){
+        try{
+            statement.executeUpdate("""
+                    delete
+                    from street
+                    where id = %s
+                    """.formatted(id));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteStreet(String street){
+        String[] streetItem = street.split(", ");
+        try{
+            statement.executeUpdate("""
+                    delete
+                    from street
+                    where region = %s and city = %s and street = %s
+                    """);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void addNewStreet(String region, String city, String street){
+        try{
+            statement.executeUpdate("""
+                    insert into street (region, city, name_street)
+                    values ('%s', '%s', '%s')
+                    """.formatted(region, city, street));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<String> getFacilities(){
         ArrayList<String> facilities = new ArrayList<>();
         try{

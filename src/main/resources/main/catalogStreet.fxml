@@ -14,8 +14,8 @@
          <children>
             <HBox prefHeight="35.0" prefWidth="542.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Удалить" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Добавить" />
+                  <Button mnemonicParsing="false" onAction="#deleteStreet" prefHeight="25.0" prefWidth="117.0" text="Удалить" />
+                  <Button mnemonicParsing="false" onAction="#addNewStreet" prefHeight="25.0" prefWidth="117.0" text="Добавить" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Редактировать" />
                </children>
             </HBox>

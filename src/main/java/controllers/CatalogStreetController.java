@@ -4,8 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.Label;
-import main.EnteringReadings;
+import main.MainApp;
 import model.Street;
+import DAO.DAO;
 
 
 public class CatalogStreetController {
@@ -24,18 +25,31 @@ public class CatalogStreetController {
     @FXML
     private TableColumn<Street, String> street;
 
-    @FXML
-    private Label regionLabel;
+    private MainApp mainApp;
 
-    @FXML
-    private Label cityLabel;
-
-    @FXML
-    private Label streetLabel;
-
-    private EnteringReadings mainApp;
+    private DAO dao;
 
     public CatalogStreetController(){
+    }
+
+    @FXML
+    private void deleteStreet(){
+        Street streetForDelete = tableStreet.getSelectionModel().selectedItemProperty().getValue();
+        if (streetForDelete != null){
+            Long streetId = streetForDelete.getId();
+            dao.deleteStreet(streetId);
+            int selectedIndex = tableStreet.getSelectionModel().getSelectedIndex();
+            tableStreet.getItems().remove(selectedIndex);
+        }
+    }
+
+    @FXML
+    private void addNewStreet(){
+        mainApp.showAddNewStreet();
+    }
+    @FXML
+    private void updateStreet(){
+
     }
 
     @FXML
@@ -46,10 +60,14 @@ public class CatalogStreetController {
         street.setCellValueFactory(cellData -> cellData.getValue().getStreetNameProperty());
     }
 
-    public void setMainApp(EnteringReadings mainApp){
+    public void setMainApp(MainApp mainApp){
         this.mainApp = mainApp;
 
         tableStreet.setItems(mainApp.getStreets());
+    }
+
+    public void setDao(DAO dao){
+        this.dao = dao;
     }
 
 
