@@ -3,11 +3,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;
 import DAO.DAO;
 import model.Street;
+
+import java.util.Optional;
 
 public class AddNewStreetOrUpdateItController {
 
@@ -30,7 +33,6 @@ public class AddNewStreetOrUpdateItController {
 
     @FXML
     private void initialize(){
-//        region.setCellFactory();
     }
 
     public void add(){
@@ -58,8 +60,9 @@ public class AddNewStreetOrUpdateItController {
             info.setTitle("Успех!");
             info.setHeaderText("Улица успешно добавлена в справочнк улиц!");
             info.setContentText(null);
+            info.showAndWait();
 
-            info.show();
+            street.clear();
         } else{
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Ошибка! Дубликат улицы.");

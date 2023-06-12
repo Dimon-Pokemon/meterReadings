@@ -55,7 +55,6 @@ public class MainApp extends Application{
     private void setRootLayout(){
         try{
             FXMLLoader loader = loadResource("enteringReadings.fxml");
-//            loader.setLocation(MainApp.class.getResource("enteringReadings.fxml"));
             rootLayout = (AnchorPane) loader.load();
 
             Scene scene = new Scene(rootLayout);
@@ -69,7 +68,6 @@ public class MainApp extends Application{
     public void showCatalogStreet(){
         try {
             FXMLLoader loader = loadResource("catalogStreet.fxml");
-//            loader.setLocation(MainApp.class.getResource("catalogStreet.fxml"));
             catalogStreetLayout = (AnchorPane) loader.load();
 
             CatalogStreetController controller = loader.getController();
@@ -81,6 +79,7 @@ public class MainApp extends Application{
             Scene scene = new Scene(catalogStreetLayout);
             catalogStreetStage.setScene(scene);
             catalogStreetStage.show();
+            catalogStreetStage.setResizable(false);
         } catch (IOException e){
             e.printStackTrace();
         }
