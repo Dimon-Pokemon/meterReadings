@@ -2,6 +2,7 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;
@@ -33,13 +34,40 @@ public class AddNewStreetOrUpdateItController {
     }
 
     public void add(){
-        dao.addNewStreet(
-                region.getSelectionModel().getSelectedItem(),
-                city.getSelectionModel().getSelectedItem(),
-                street.getText()
-        );
-        mainStreets.removeAll(mainStreets);
-        mainStreets.addAll(dao.getStreets());
+        Boolean flag = true;
+        for (int i = 0; i<mainStreets.size(); i++){
+            if (mainStreets.get(i).toString().equals("%s, %s, %s"
+                    .formatted(
+                            region.getSelectionModel().getSelectedItem(),
+                            city.getSelectionModel().getSelectedItem(),
+                            this.street.getText()))) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag){
+            dao.addNewStreet(
+                    region.getSelectionModel().getSelectedItem(),
+                    city.getSelectionModel().getSelectedItem(),
+                    street.getText()
+            );
+            mainStreets.removeAll(mainStreets);
+            mainStreets.addAll(dao.getStreets());
+
+            Alert info = new Alert(Alert.AlertType.INFORMATION);
+            info.setTitle("Успех!");
+            info.setHeaderText("Улица успешно добавлена в справочнк улиц!");
+            info.setContentText(null);
+
+            info.show();
+        } else{
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Ошибка! Дубликат улицы.");
+            error.setHeaderText("Нельзя добавить улицу, так как запись с такой улицей уже существует в справочнике улиц!");
+            error.setContentText(null);
+
+            error.show();
+        }
     }
 
     public void setMainApp(MainApp mainApp){
