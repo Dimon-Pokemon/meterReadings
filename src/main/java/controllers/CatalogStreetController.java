@@ -45,11 +45,11 @@ public class CatalogStreetController {
 
     @FXML
     private void addNewStreet(){
-        mainApp.showAddNewStreetOrUpdateIt();
+        mainApp.showAddNewStreetOrEditIt();
     }
     @FXML
     private void editStreet(){
-        mainApp.showAddNewStreetOrUpdateIt("UPDATE", tableStreet.getSelectionModel().selectedItemProperty().getValue());
+        mainApp.showAddNewStreetOrEditIt("UPDATE", tableStreet.getSelectionModel().selectedItemProperty().getValue());
     }
 
     @FXML

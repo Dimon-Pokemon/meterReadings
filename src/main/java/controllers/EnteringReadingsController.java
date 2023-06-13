@@ -30,6 +30,9 @@ public class EnteringReadingsController {
         mainApp.showCatalogStreet();
     }
 
+    @FXML
+    private void editMeteringDeviceController(){ mainApp.showCatalogMeteringDevice(); }
+
     public void setMainApp(MainApp mainApp){
         this.mainApp = mainApp;
     }
