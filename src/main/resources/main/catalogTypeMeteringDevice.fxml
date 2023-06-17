@@ -19,13 +19,13 @@
                   <Button mnemonicParsing="false" onAction="#editType" prefHeight="25.0" prefWidth="117.0" text="Редактировать" />
                </children>
             </HBox>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="175.0" prefWidth="530.0" vbarPolicy="ALWAYS">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="175.0" prefWidth="530.0" vbarPolicy="NEVER">
                <content>
-                  <TableView fx:id="tableTypeMeteringDevice" prefHeight="174.0" prefWidth="515.0">
+                  <TableView fx:id="tableTypeMeteringDevice" prefHeight="174.0" prefWidth="530.0">
                      <columns>
-                        <TableColumn fx:id="titleType" prefWidth="205.0" text="Наименование ИПУ" />
-                        <TableColumn fx:id="facility" prefWidth="165.0" text="Услуга" />
-                        <TableColumn fx:id="capacity" minWidth="0.0" prefWidth="144.0" text="Разрядность" />
+                        <TableColumn fx:id="titleType" prefWidth="217.0" text="Наименование ИПУ" />
+                        <TableColumn fx:id="facility" prefWidth="203.0" text="Услуга" />
+                        <TableColumn fx:id="capacity" minWidth="0.0" prefWidth="109.0" text="Разрядность" />
                      </columns>
                   </TableView>
                </content>

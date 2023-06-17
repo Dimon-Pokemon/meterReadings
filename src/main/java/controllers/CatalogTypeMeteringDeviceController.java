@@ -5,6 +5,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.MainApp;
 import DAO.DAO;
+import model.Street;
 import model.TypeMeteringDevice;
 
 public class CatalogTypeMeteringDeviceController {
@@ -26,11 +27,16 @@ public class CatalogTypeMeteringDeviceController {
 
     @FXML
     private void deleteType(){
-
+        TypeMeteringDevice typeForDelete = tableTypeMeteringDevice.getSelectionModel().selectedItemProperty().getValue();
+        if (typeForDelete != null){
+            dao.deleteTypeMeteringDevice(typeForDelete.getId());
+            tableTypeMeteringDevice.getItems().remove(tableTypeMeteringDevice.getSelectionModel().getSelectedIndex());
+        }
     }
 
     @FXML
     private void addType(){
+
     }
 
     @FXML

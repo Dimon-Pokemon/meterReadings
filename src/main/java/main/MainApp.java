@@ -106,7 +106,7 @@ public class MainApp extends Application{
      */
     public void showCatalogTypeMeteringDevice(){
         try {
-            FXMLLoader loader = loadResource("catalogTypeMeteringDevice.fxml.fxml");
+            FXMLLoader loader = loadResource("catalogTypeMeteringDevice.fxml");
             catalogTypeMeteringDeviceLayout = (AnchorPane) loader.load();
 
             catalogTypeMeteringDeviceStage = new Stage();
@@ -116,6 +116,7 @@ public class MainApp extends Application{
 
             Scene scene = new Scene(catalogTypeMeteringDeviceLayout);
             catalogTypeMeteringDeviceStage.setScene(scene);
+            catalogTypeMeteringDeviceStage.setResizable(false);
             catalogTypeMeteringDeviceStage.show();
         } catch (Exception e){
             e.printStackTrace();
@@ -138,8 +139,8 @@ public class MainApp extends Application{
 
             Scene scene = new Scene(catalogStreetLayout);
             catalogStreetStage.setScene(scene);
-            catalogStreetStage.show();
             catalogStreetStage.setResizable(false);
+            catalogStreetStage.show();
         } catch (IOException e){
             e.printStackTrace();
         }
