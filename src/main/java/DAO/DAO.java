@@ -119,4 +119,48 @@ public class DAO {
         }
     }
 
+    public void addNewTypeMeteringDevice(String title, String facilityFk, Integer capacity){
+        try {
+            statement.executeUpdate("""
+                    insert into type_metering_device
+                    (title, facility_fk, capacity)
+                    values
+                    ('%s', '%s', %d)
+                    """.formatted(title, facilityFk, capacity));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteTypeMeteringDevice(Long id){
+        try{
+            statement.executeUpdate("""
+                    delete from type_metering_device tmd
+                    where tmd.id = id
+                    """);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<TypeMeteringDevice> getTypesMeteringDevice(){
+        ArrayList<TypeMeteringDevice> typeMeteringDevices = new ArrayList<>();
+        try{
+            ResultSet resultSQL = statement.executeQuery("""
+                    select * from type_metering_device
+                    """);
+            while(resultSQL.next()){
+                typeMeteringDevices.add(new TypeMeteringDevice(
+                        resultSQL.getLong("id"),
+                        resultSQL.getString("title"),
+                        resultSQL.getString("facility_fk"),
+                        resultSQL.getInt("capacity")
+                ));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return typeMeteringDevices;
+    }
+
 }

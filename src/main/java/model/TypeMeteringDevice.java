@@ -5,24 +5,24 @@ import javafx.beans.property.*;
 public class TypeMeteringDevice {
 
     private final LongProperty id;
-    private final StringProperty nameType;
+    private final StringProperty titleType;
     private final StringProperty facility;
-    private final IntegerProperty accuracy;
+    private final IntegerProperty capacity;
 
-    TypeMeteringDevice(Long id, String nameType, String facility, Integer accuracy){
+    public TypeMeteringDevice(Long id, String titleType, String facility, Integer capacity){
         this.id = new SimpleLongProperty(id);
-        this.nameType = new SimpleStringProperty(nameType);
+        this.titleType = new SimpleStringProperty(titleType);
         this.facility = new SimpleStringProperty(facility);
-        this.accuracy = new SimpleIntegerProperty(accuracy);
+        this.capacity = new SimpleIntegerProperty(capacity);
     }
 
-    TypeMeteringDevice(LongProperty id, StringProperty nameType, StringProperty facility, IntegerProperty accuracy){
-        this(id.get(), nameType.get(), facility.get(), accuracy.get());
+    public TypeMeteringDevice(LongProperty id, StringProperty titleType, StringProperty facility, IntegerProperty accuracy){
+        this(id.get(), titleType.get(), facility.get(), accuracy.get());
     }
 
     @Override
     public String toString() {
-        return nameType.get();
+        return titleType.get();
     }
 
 
@@ -37,16 +37,16 @@ public class TypeMeteringDevice {
     public void setId(Long newId){
         this.id.set(newId);
     }
-    public String getNameType() {
-        return nameType.get();
+    public String getTitleType() {
+        return titleType.get();
     }
 
-    public StringProperty getNameTypeProperty() {
-        return nameType;
+    public StringProperty getTitleTypeProperty() {
+        return titleType;
     }
 
-    public void setNameType(String newType){
-        this.nameType.set(newType);
+    public void setTitleType(String newType){
+        this.titleType.set(newType);
     }
 
     public String getFacility() {
@@ -61,15 +61,15 @@ public class TypeMeteringDevice {
         return facility;
     }
 
-    public double getAccuracy() {
-        return accuracy.get();
+    public double getCapacity() {
+        return capacity.get();
     }
 
-    public IntegerProperty getAccuracyProperty() {
-        return accuracy;
+    public IntegerProperty getCapacityProperty() {
+        return capacity;
     }
 
-    public void setAccuracy(Integer newAccuracy){
-        this.accuracy.set(newAccuracy);
+    public void setCapacity(Integer newAccuracy){
+        this.capacity.set(newAccuracy);
     }
 }

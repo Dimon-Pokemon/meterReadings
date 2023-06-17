@@ -47,6 +47,7 @@ public class CatalogStreetController {
     private void addNewStreet(){
         mainApp.showAddNewStreetOrEditIt();
     }
+
     @FXML
     private void editStreet(){
         mainApp.showAddNewStreetOrEditIt("UPDATE", tableStreet.getSelectionModel().selectedItemProperty().getValue());
@@ -63,7 +64,7 @@ public class CatalogStreetController {
     public void setMainApp(MainApp mainApp){
         this.mainApp = mainApp;
 
-        tableStreet.setItems(mainApp.getStreets());
+        this.tableStreet.setItems(mainApp.getStreets());
     }
 
     public void setDao(DAO dao){

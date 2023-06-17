@@ -14,18 +14,18 @@
          <children>
             <HBox prefHeight="35.0" prefWidth="354.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Удалить" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Добавить" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" text="Редактировать" />
+                  <Button mnemonicParsing="false" onAction="#deleteType" prefHeight="25.0" prefWidth="117.0" text="Удалить" />
+                  <Button mnemonicParsing="false" onAction="#addType" prefHeight="25.0" prefWidth="117.0" text="Добавить" />
+                  <Button mnemonicParsing="false" onAction="#editType" prefHeight="25.0" prefWidth="117.0" text="Редактировать" />
                </children>
             </HBox>
             <ScrollPane hbarPolicy="NEVER" prefHeight="175.0" prefWidth="530.0" vbarPolicy="ALWAYS">
                <content>
-                  <TableView prefHeight="174.0" prefWidth="515.0">
+                  <TableView fx:id="tableTypeMeteringDevice" prefHeight="174.0" prefWidth="515.0">
                      <columns>
-                        <TableColumn prefWidth="205.0" text="Наименование ИПУ" />
-                        <TableColumn prefWidth="165.0" text="Услуга" />
-                        <TableColumn minWidth="0.0" prefWidth="144.0" text="Точность" />
+                        <TableColumn fx:id="titleType" prefWidth="205.0" text="Наименование ИПУ" />
+                        <TableColumn fx:id="facility" prefWidth="165.0" text="Услуга" />
+                        <TableColumn fx:id="capacity" minWidth="0.0" prefWidth="144.0" text="Разрядность" />
                      </columns>
                   </TableView>
                </content>

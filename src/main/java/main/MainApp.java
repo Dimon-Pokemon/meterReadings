@@ -4,6 +4,7 @@ import controllers.AddNewMeteringDeviceController;
 import controllers.AddNewStreetOrUpdateItController;
 import controllers.CatalogStreetController;
 import controllers.EnteringReadingsController;
+import controllers.CatalogTypeMeteringDeviceController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,6 +35,7 @@ public class MainApp extends Application{
 
     private ObservableList<ReadingLog> readingsLog = FXCollections.observableArrayList();
     private ObservableList<Street> streets = FXCollections.observableArrayList();
+    private ObservableList<TypeMeteringDevice> typesMeteringDevice = FXCollections.observableArrayList();
     private ObservableList<String> facilities = FXCollections.observableArrayList();
 
     private DAO dao;
@@ -108,6 +110,9 @@ public class MainApp extends Application{
             catalogTypeMeteringDeviceLayout = (AnchorPane) loader.load();
 
             catalogTypeMeteringDeviceStage = new Stage();
+            CatalogTypeMeteringDeviceController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDao(dao);
 
             Scene scene = new Scene(catalogTypeMeteringDeviceLayout);
             catalogTypeMeteringDeviceStage.setScene(scene);
@@ -181,6 +186,7 @@ public class MainApp extends Application{
     public MainApp(){
         this.dao = new DAO();
         this.streets.addAll(dao.getStreets());
+        this.typesMeteringDevice.addAll(dao.getTypesMeteringDevice());
     }
 
     public DAO getDao(){
@@ -197,5 +203,9 @@ public class MainApp extends Application{
     public static void main(String args[]){
         MainApp mainApp = new MainApp();
         launch(args);
+    }
+
+    public ObservableList<TypeMeteringDevice> getTypesMeteringDevice(){
+        return this.typesMeteringDevice;
     }
 }
