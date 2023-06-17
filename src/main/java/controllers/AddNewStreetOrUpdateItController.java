@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import main.MainApp;
 import DAO.DAO;
 import model.Street;
+import dialog.Dialog;
 
 import java.util.Optional;
 
@@ -65,23 +66,6 @@ public class AddNewStreetOrUpdateItController {
         return true;
     }
 
-    private void successfulInfoWindow(String title, String headerText){
-        Alert info = new Alert(Alert.AlertType.INFORMATION);
-        info.setTitle(title);
-        info.setHeaderText(headerText);
-        info.setContentText(null);
-        info.showAndWait();
-    }
-
-    private void errorWindow(String title, String headerText){
-        Alert error = new Alert(Alert.AlertType.ERROR);
-        error.setTitle(title);
-        error.setHeaderText(headerText);
-        error.setContentText(null);
-
-        error.show();
-    }
-
     @FXML
     private void add(){
         if (observableListHasNotDuplicateItem(this.mainStreets)){
@@ -93,11 +77,11 @@ public class AddNewStreetOrUpdateItController {
             this.mainStreets.removeAll(this.mainStreets);
             this.mainStreets.addAll(this.dao.getStreets());
 
-            successfulInfoWindow("Успех!", "Улица успешно добавлена в справочнк улиц!");
+            Dialog.successfulInfoWindow("Успех!", "Улица успешно добавлена в справочнк улиц!");
 
             street.clear();
         } else{
-            errorWindow(
+            Dialog.errorWindow(
                     "Ошибка! Дубликат улицы.",
                     "Нельзя добавить улицу, так как запись с такой улицей уже существует в справочнике улиц!"
             );
@@ -117,11 +101,11 @@ public class AddNewStreetOrUpdateItController {
             this.mainStreets.removeAll(this.mainStreets);
             this.mainStreets.addAll(this.dao.getStreets());
 
-            successfulInfoWindow("Успех!", "Запись успешно обнавлена в справочнике");
+            Dialog.successfulInfoWindow("Успех!", "Запись успешно обнавлена в справочнике");
 
             this.mainApp.closeWindowAddNewStreetStage();
         } else{
-            errorWindow(
+            Dialog.errorWindow(
                     "Ошибка!",
                     "Не удалось обновить запись в справочнике улиц - данная улица уже существует в справочнике."
             );
