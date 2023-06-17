@@ -178,7 +178,7 @@ public class MainApp extends Application{
         showAddNewStreetOrEditIt("ADD", null);
     }
 
-    public void showAddNewTypeMeteringDeviceOrEditIt(String mode){
+    public void showAddNewTypeMeteringDeviceOrEditIt(String mode, TypeMeteringDevice typeMeteringDevice){
         try {
             FXMLLoader loader = loadResource("addNewTypeMeteringDeviceOrEditIt.fxml");
             addNewTypeMeteringDeviceOrEditItLayout = (AnchorPane) loader.load();
@@ -187,7 +187,8 @@ public class MainApp extends Application{
             controller.setMainApp(this);
             controller.setDao(this.dao);
 
-            if (mode == "UPDATE"){
+            if (mode.equals("UPDATE")){
+                controller.setDataForUIElementsForEditTypeMeteringDevice(typeMeteringDevice);
             }
 
             addNewTypeMeteringDeviceOrEditItStage = new Stage();

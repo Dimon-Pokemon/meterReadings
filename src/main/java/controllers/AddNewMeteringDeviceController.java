@@ -42,6 +42,7 @@ public class AddNewMeteringDeviceController {
     public void setMainApp(MainApp mainApp){
         this.mainApp = mainApp;
         this.streets.setItems(mainApp.getStreets());
+        this.typesMeteringDevice.setItems(mainApp.getTypesMeteringDevice());
     }
 
     public void setDao(DAO dao){this.dao = dao;}

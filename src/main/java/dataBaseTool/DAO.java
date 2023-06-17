@@ -132,6 +132,17 @@ public class DAO {
         }
     }
 
+    public void updateTypeMeteringDevice(String title, String facilityFk, Integer capacity){
+        try{
+            statement.executeUpdate("""
+                    update type_metering_device
+                    set title = '%s', facility_fk = '%s', capacity = %d
+                    """.formatted(title, facilityFk, capacity));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public void deleteTypeMeteringDevice(Long id){
         try{
             statement.executeUpdate("""

@@ -35,11 +35,12 @@ public class CatalogTypeMeteringDeviceController {
 
     @FXML
     private void addType(){
-        mainApp.showAddNewTypeMeteringDeviceOrEditIt("ADD");
+        mainApp.showAddNewTypeMeteringDeviceOrEditIt("ADD", null);
     }
 
     @FXML
     private void editType(){
+        mainApp.showAddNewTypeMeteringDeviceOrEditIt("UPDATE", tableTypeMeteringDevice.getSelectionModel().getSelectedItem());
     }
 
     @FXML

@@ -37,6 +37,6 @@
             <TextField fx:id="titleType" prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="167.0" layoutY="152.0" mnemonicParsing="false" onAction="#addNewType" text="Добавить тип ИПУ" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.0" />
+      <Button fx:id="button" layoutX="167.0" layoutY="152.0" mnemonicParsing="false" onAction="#add" text="Добавить тип ИПУ" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.0" />
    </children>
 </AnchorPane>

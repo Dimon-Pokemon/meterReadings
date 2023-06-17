@@ -1,7 +1,10 @@
 package controllers;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;
@@ -17,6 +20,8 @@ public class AddNewTypeMeteringDeviceOrEditItController {
     private ComboBox<String> facility;
     @FXML
     private TextField capacity;
+    @FXML
+    private Button button;
 
     private MainApp mainApp;
     private DAO dao;
@@ -30,27 +35,26 @@ public class AddNewTypeMeteringDeviceOrEditItController {
     public AddNewTypeMeteringDeviceOrEditItController(){
     }
 
-    private Boolean observableListTypeHasNotDuplicateItem(String inputDataConvertedToString){
+    private Boolean observableListTypeHasNotDuplicateItem(String inputTitleType){
         for (int i=0; i< mainTypeMeteringDevice.size(); i++){
-            if (mainTypeMeteringDevice.get(i).equals(inputDataConvertedToString)){
+            if (mainTypeMeteringDevice.get(i).equals(inputTitleType)){
                 return false;
             }
         }
         return true;
     }
 
+    /**
+     * Метод для получения введенных строк с текстовых полей ввода и выбранного значения из выпадающего списка
+     */
     private void getInput(){
-        inputTitleType = this.titleType.getText();
-        inputFacility = this.facility.getSelectionModel().getSelectedItem();
-        inputCapacity = Integer.parseInt(this.capacity.getText());
-    }
-
-    private String convertInputDataToString(){
-        return "%s (Facility: %s; Capacity: %d)".formatted(inputTitleType, inputFacility, inputCapacity);
+        inputTitleType = this.titleType.getText(); // Получение введенного наименования типа ИПУ через текстовое поле ввода
+        inputFacility = this.facility.getSelectionModel().getSelectedItem(); // Получение выбранной через выпадающий список услуги
+        inputCapacity = Integer.parseInt(this.capacity.getText()); // Получение разрядности, указанную через текстовое поле ввода
     }
 
     @FXML
-    private void addNewType(){
+    private void add(){
         getInput();
         if (observableListTypeHasNotDuplicateItem(inputTitleType)){
             dao.addNewTypeMeteringDevice(
@@ -59,9 +63,46 @@ public class AddNewTypeMeteringDeviceOrEditItController {
                     inputCapacity
             );
             Dialog.successfulInfoWindow("Успех!", "Новый тип прибора учета успешно добавлен в спарвочник ИПУ.");
+
+            this.mainTypeMeteringDevice.removeAll(this.mainTypeMeteringDevice);
+            this.mainTypeMeteringDevice.addAll(this.dao.getTypesMeteringDevice());
+
         } else {
             Dialog.errorWindow("Ошибка!", "Тип прибора уже существует!");
         }
+    }
+
+    @FXML
+    private void update(){
+        getInput();
+        if (observableListTypeHasNotDuplicateItem(inputTitleType)){
+            dao.updateTypeMeteringDevice(
+                    inputTitleType,
+                    inputFacility,
+                    inputCapacity
+            );
+            Dialog.successfulInfoWindow("Успех!", "Тип прибора был изменен.");
+
+            this.mainTypeMeteringDevice.removeAll(this.mainTypeMeteringDevice);
+            this.mainTypeMeteringDevice.addAll(this.dao.getTypesMeteringDevice());
+
+        } else {
+            Dialog.errorWindow("Ошибка!", "Невозможно изменить тип прибора. Тип прибора уже существует!");
+        }
+    }
+
+    public void setDataForUIElementsForEditTypeMeteringDevice(TypeMeteringDevice typeMeteringDeviceForEdit){
+        titleType.setText(typeMeteringDeviceForEdit.getTitleType());
+        facility.getSelectionModel().select(typeMeteringDeviceForEdit.getFacility());
+        capacity.setText(typeMeteringDeviceForEdit.getCapacity().toString());
+
+        this.button.setText("Изменить");
+
+        this.button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                update();}
+        });
     }
 
     public void setMainApp(MainApp mainApp){

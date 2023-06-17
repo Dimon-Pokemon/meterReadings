@@ -61,7 +61,7 @@ public class TypeMeteringDevice {
         return facility;
     }
 
-    public double getCapacity() {
+    public Integer getCapacity() {
         return capacity.get();
     }
 
