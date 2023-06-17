@@ -9,24 +9,27 @@ public class ReadingLog {
 
     private final ObjectProperty<LocalDate> date;
     private final StringProperty nameMeteringDevice;
+    private final StringProperty titleTypeMeteringDevice;
     private final DoubleProperty readings;
     private final StringProperty street;
     private final IntegerProperty accuracy;
-    ReadingLog(LocalDate date, String nameMeteringDevice, Double readings, String street, Integer accuracy){
+    public ReadingLog(LocalDate date, String nameMeteringDevice, String titleTypeMeteringDevice, Double readings, String street, Integer accuracy){
         this.date = new SimpleObjectProperty<LocalDate>(date);
         this.nameMeteringDevice = new SimpleStringProperty(nameMeteringDevice);
+        this.titleTypeMeteringDevice = new SimpleStringProperty(titleTypeMeteringDevice);
         this.readings = new SimpleDoubleProperty(readings);
         this.street = new SimpleStringProperty(street);
         this.accuracy = new SimpleIntegerProperty(accuracy);
     }
 
-    ReadingLog(ObjectProperty date,
+    public ReadingLog(ObjectProperty date,
                StringProperty nameMeteringDevice,
+               StringProperty titleTypeMeteringDevice,
                DoubleProperty readings,
                StringProperty street,
                IntegerProperty accuracy)
     {
-        this((LocalDate) date.get(), nameMeteringDevice.get(), readings.get(), street.get(), accuracy.get());
+        this((LocalDate) date.get(), nameMeteringDevice.get(), titleTypeMeteringDevice.get(), readings.get(), street.get(), accuracy.get());
     }
 
     public LocalDate getDate() {
@@ -51,6 +54,18 @@ public class ReadingLog {
 
     public void setNameMeteringDevice(String nameMeteringDevice){
         this.nameMeteringDevice.set(nameMeteringDevice);
+    }
+
+    public String getTitleTypeMeteringDevice() {
+        return titleTypeMeteringDevice.get();
+    }
+
+    public StringProperty getTitleTypeMeteringDeviceProperty() {
+        return titleTypeMeteringDevice;
+    }
+
+    public void setTitleTypeMeteringDevice(String titleTypeMeteringDevice){
+        this.titleTypeMeteringDevice.set(titleTypeMeteringDevice);
     }
 
     public double getReadings() {

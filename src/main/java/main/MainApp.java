@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.MeteringDevice;
 import model.ReadingLog;
 import dataBaseTool.DAO;
 import model.Street;
@@ -34,6 +35,7 @@ public class MainApp extends Application{
     private ObservableList<ReadingLog> readingsLog = FXCollections.observableArrayList();
     private ObservableList<Street> streets = FXCollections.observableArrayList();
     private ObservableList<TypeMeteringDevice> typesMeteringDevice = FXCollections.observableArrayList();
+    private ObservableList<MeteringDevice> meteringDevices = FXCollections.observableArrayList();
     private ObservableList<String> facilities = FXCollections.observableArrayList();
 
     private DAO dao;
@@ -45,6 +47,8 @@ public class MainApp extends Application{
     public ObservableList<Street> getStreets(){return streets;}
 
     public ObservableList<String> getFacilities(){return facilities;}
+
+    public ObservableList<MeteringDevice> getMeteringDevices(){return meteringDevices;}
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -72,6 +76,7 @@ public class MainApp extends Application{
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (Exception e){
             e.printStackTrace();

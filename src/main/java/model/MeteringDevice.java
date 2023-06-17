@@ -8,20 +8,24 @@ import javafx.beans.property.StringProperty;
 public class MeteringDevice {
     private final StringProperty street;
     private final StringProperty typeMeteringDevice;
-
     private final LongProperty serialNumber;
 
 
-    MeteringDevice(String street, String typeMeteringDevice, Long serialNumber){
+    public MeteringDevice(String street, String typeMeteringDevice, Long serialNumber){
         this.street = new SimpleStringProperty(street);
         this.typeMeteringDevice = new SimpleStringProperty(typeMeteringDevice);
         this.serialNumber = new SimpleLongProperty(serialNumber);
     }
 
-    MeteringDevice(Street street, TypeMeteringDevice typeMeteringDevice, Long serialNumber){
+    public MeteringDevice(Street street, TypeMeteringDevice typeMeteringDevice, Long serialNumber){
         this(street.toString(), typeMeteringDevice.toString(), serialNumber);
     }
 
+
+    @Override
+    public String toString(){
+        return "%d".formatted(serialNumber.get());
+    }
 
     public long getSerialNumber() {
         return serialNumber.get();

@@ -1,4 +1,6 @@
 package dataBaseTool;
+import model.MeteringDevice;
+import model.ReadingLog;
 import model.Street;
 import model.TypeMeteringDevice;
 
@@ -25,6 +27,45 @@ public class DAO {
 
     DAO(Connection driverManager){
         this.driverManager = driverManager;
+    }
+
+
+    public ArrayList<ReadingLog> getReadingLog(Street street, MeteringDevice meteringDeivce){
+        ArrayList<ReadingLog> readingLogs = new ArrayList<>();
+        try{
+            ResultSet readings = statement.executeQuery("""
+                    select * from readings
+                    
+                    """);
+            while (readings.next()){
+                // Other code
+            }
+        }catch (SQLException e ){
+            e.printStackTrace();
+        }
+        return readingLogs;
+    }
+
+    public ArrayList<MeteringDevice> getMeteringDevices(Street street){
+        ArrayList<MeteringDevice> meteringDevices = new ArrayList<>();
+        try{
+            ResultSet resultSQL = statement.executeQuery("""
+                    select name_street, title, serial_number from metering_device md
+                    join street s on s.id = md.street_fk
+                    join type_metering_device tmp on tmp.id = md.type_metering_device_fk
+                    where s.id = %d;
+                    """.formatted(street.getId()));
+            while(resultSQL.next()){
+                meteringDevices.add(new MeteringDevice(
+                        resultSQL.getString("name_street"),
+                        resultSQL.getString("title"),
+                        resultSQL.getLong("serial_number")
+                ));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return meteringDevices;
     }
 
     public ArrayList<Street> getStreets(){
