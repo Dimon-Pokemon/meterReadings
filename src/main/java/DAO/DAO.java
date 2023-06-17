@@ -108,5 +108,15 @@ public class DAO {
     }
 
 
+    public void addNewMeteringDevice(Long serialNumber, Long streetFk, Long typeMeteringDeviceFk){
+        try{
+            statement.executeUpdate("""
+                        insert into metering_device
+                        values (%d, '%s', '%s')
+                        """.formatted(serialNumber, streetFk, typeMeteringDeviceFk));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
 }

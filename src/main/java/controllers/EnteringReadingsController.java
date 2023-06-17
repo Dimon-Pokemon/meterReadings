@@ -4,6 +4,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import main.MainApp;
+import DAO.DAO;
 
 public class EnteringReadingsController {
     @FXML
@@ -16,6 +17,7 @@ public class EnteringReadingsController {
     private TableView<String> catalogReading;
 
     private MainApp mainApp;
+    private DAO dao;
 
     public EnteringReadingsController(){
     }
@@ -31,9 +33,11 @@ public class EnteringReadingsController {
     }
 
     @FXML
-    private void editMeteringDeviceController(){ mainApp.showCatalogMeteringDevice(); }
+    private void addNewMeteringDevice(){ mainApp.showAddNewMeteringDevice(); }
 
     public void setMainApp(MainApp mainApp){
         this.mainApp = mainApp;
     }
+
+    public void setDao(DAO dao){this.dao = dao;}
 }

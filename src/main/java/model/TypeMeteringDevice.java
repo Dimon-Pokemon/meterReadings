@@ -1,24 +1,23 @@
 package model;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.*;
 
 public class TypeMeteringDevice {
 
+    private final LongProperty id;
     private final StringProperty nameType;
     private final StringProperty facility;
     private final IntegerProperty accuracy;
 
-    TypeMeteringDevice(String nameType, String facility, Integer accuracy){
+    TypeMeteringDevice(Long id, String nameType, String facility, Integer accuracy){
+        this.id = new SimpleLongProperty(id);
         this.nameType = new SimpleStringProperty(nameType);
         this.facility = new SimpleStringProperty(facility);
         this.accuracy = new SimpleIntegerProperty(accuracy);
     }
 
-    TypeMeteringDevice(StringProperty nameType, StringProperty facility, IntegerProperty accuracy){
-        this(nameType.get(), facility.get(), accuracy.get());
+    TypeMeteringDevice(LongProperty id, StringProperty nameType, StringProperty facility, IntegerProperty accuracy){
+        this(id.get(), nameType.get(), facility.get(), accuracy.get());
     }
 
     @Override
@@ -26,6 +25,18 @@ public class TypeMeteringDevice {
         return nameType.get();
     }
 
+
+    public long getId() {
+        return id.get();
+    }
+
+    public LongProperty getIdProperty() {
+        return id;
+    }
+
+    public void setId(Long newId){
+        this.id.set(newId);
+    }
     public String getNameType() {
         return nameType.get();
     }

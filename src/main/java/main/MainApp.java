@@ -1,7 +1,9 @@
 package main;
 
+import controllers.AddNewMeteringDeviceController;
 import controllers.AddNewStreetOrUpdateItController;
 import controllers.CatalogStreetController;
+import controllers.EnteringReadingsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,14 +24,11 @@ public class MainApp extends Application{
     private Stage primaryStage;
     private Stage catalogStreetStage;
     private Stage addNewStreetStage;
-    private Stage catalogMeteringDeviceStage;
     private Stage addNewMeteringDeviceStage;
     private Stage catalogTypeMeteringDeviceStage;
     private AnchorPane rootLayout;
     private AnchorPane catalogStreetLayout;
     private AnchorPane addNewStreetLayout;
-
-    private AnchorPane catalogMeteringDeviceLayout;
     private AnchorPane addNewMeteringDeviceLayout;
     private AnchorPane catalogTypeMeteringDeviceLayout;
 
@@ -66,6 +65,11 @@ public class MainApp extends Application{
             FXMLLoader loader = loadResource("enteringReadings.fxml");
             rootLayout = (AnchorPane) loader.load();
 
+            primaryStage = new Stage();
+            EnteringReadingsController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDao(dao);
+
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -80,24 +84,16 @@ public class MainApp extends Application{
     public void showAddNewMeteringDevice(){
         try {
             FXMLLoader loader = loadResource("addNewMeteringDevice.fxml");
-            addNewStreetLayout = (AnchorPane) loader.load();
+            addNewMeteringDeviceLayout = (AnchorPane) loader.load();
 
             addNewMeteringDeviceStage = new Stage();
+            AddNewMeteringDeviceController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDao(dao);
 
             Scene scene = new Scene(addNewMeteringDeviceLayout);
             addNewMeteringDeviceStage.setScene(scene);
             addNewMeteringDeviceStage.show();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Метод, отображающий форму справочника ИПУ.
-     */
-    public void showCatalogMeteringDevice(){
-        try{
-            FXMLLoader loader = loadResource("catalogMeteringDevice.fxml");
         } catch (Exception e){
             e.printStackTrace();
         }
