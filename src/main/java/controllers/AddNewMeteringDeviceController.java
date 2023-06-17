@@ -1,8 +1,7 @@
 package controllers;
 
-import DAO.DAO;
+import dataBaseTool.DAO;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;

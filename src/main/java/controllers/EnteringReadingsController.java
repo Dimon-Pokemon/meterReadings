@@ -4,7 +4,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import main.MainApp;
-import DAO.DAO;
+import dataBaseTool.DAO;
 
 public class EnteringReadingsController {
     @FXML

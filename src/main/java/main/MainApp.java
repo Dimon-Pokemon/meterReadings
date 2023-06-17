@@ -1,10 +1,6 @@
 package main;
 
-import controllers.AddNewMeteringDeviceController;
-import controllers.AddNewStreetOrUpdateItController;
-import controllers.CatalogStreetController;
-import controllers.EnteringReadingsController;
-import controllers.CatalogTypeMeteringDeviceController;
+import controllers.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,9 +8,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.MeteringDevice;
 import model.ReadingLog;
-import DAO.DAO;
+import dataBaseTool.DAO;
 import model.Street;
 import model.TypeMeteringDevice;
 
@@ -27,11 +22,14 @@ public class MainApp extends Application{
     private Stage addNewStreetStage;
     private Stage addNewMeteringDeviceStage;
     private Stage catalogTypeMeteringDeviceStage;
+    private Stage addNewTypeMeteringDeviceOrEditItStage;
+
     private AnchorPane rootLayout;
     private AnchorPane catalogStreetLayout;
     private AnchorPane addNewStreetLayout;
     private AnchorPane addNewMeteringDeviceLayout;
     private AnchorPane catalogTypeMeteringDeviceLayout;
+    private AnchorPane addNewTypeMeteringDeviceOrEditItLayout;
 
     private ObservableList<ReadingLog> readingsLog = FXCollections.observableArrayList();
     private ObservableList<Street> streets = FXCollections.observableArrayList();
@@ -180,14 +178,38 @@ public class MainApp extends Application{
         showAddNewStreetOrEditIt("ADD", null);
     }
 
+    public void showAddNewTypeMeteringDeviceOrEditIt(String mode){
+        try {
+            FXMLLoader loader = loadResource("addNewTypeMeteringDeviceOrEditIt.fxml");
+            addNewTypeMeteringDeviceOrEditItLayout = (AnchorPane) loader.load();
+
+            AddNewTypeMeteringDeviceOrEditItController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setDao(this.dao);
+
+            if (mode == "UPDATE"){
+            }
+
+            addNewTypeMeteringDeviceOrEditItStage = new Stage();
+
+            Scene scene = new Scene(addNewTypeMeteringDeviceOrEditItLayout);
+            addNewTypeMeteringDeviceOrEditItStage.setScene(scene);
+            addNewTypeMeteringDeviceOrEditItStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Конструктор основного класса.
-     * Создает объект класса {DAO} и загружает все улицы с БД.
+     * Создает объект класса DAO, загружает все улицы, типы приборов учета
+     * и улсуги из БД.
      */
     public MainApp(){
         this.dao = new DAO();
         this.streets.addAll(dao.getStreets());
         this.typesMeteringDevice.addAll(dao.getTypesMeteringDevice());
+        this.facilities.addAll(dao.getFacilities());
     }
 
     public DAO getDao(){

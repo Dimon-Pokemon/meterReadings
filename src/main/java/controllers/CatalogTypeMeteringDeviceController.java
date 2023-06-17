@@ -4,8 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.MainApp;
-import DAO.DAO;
-import model.Street;
+import dataBaseTool.DAO;
 import model.TypeMeteringDevice;
 
 public class CatalogTypeMeteringDeviceController {
@@ -36,7 +35,7 @@ public class CatalogTypeMeteringDeviceController {
 
     @FXML
     private void addType(){
-
+        mainApp.showAddNewTypeMeteringDeviceOrEditIt("ADD");
     }
 
     @FXML

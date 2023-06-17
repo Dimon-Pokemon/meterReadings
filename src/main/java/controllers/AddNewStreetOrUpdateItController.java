@@ -4,16 +4,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;
-import DAO.DAO;
+import dataBaseTool.DAO;
 import model.Street;
 import dialog.Dialog;
-
-import java.util.Optional;
 
 public class AddNewStreetOrUpdateItController {
 
@@ -41,7 +38,7 @@ public class AddNewStreetOrUpdateItController {
     private void initialize(){
     }
 
-    private boolean observableListHasNotDuplicateItem(ObservableList<Street> observableListWithStreet, Street street){
+    private boolean observableListStreetHasNotDuplicateItem(ObservableList<Street> observableListWithStreet, Street street){
         for (int i = 0; i<observableListWithStreet.size(); i++){
             if(observableListWithStreet.get(i).toString().equals("%s, %s, %s"
                     .formatted(
@@ -53,7 +50,7 @@ public class AddNewStreetOrUpdateItController {
         }
         return true;
     }
-    private boolean observableListHasNotDuplicateItem(ObservableList<Street> observableListWithStreet){
+    private boolean observableListStreetHasNotDuplicateItem(ObservableList<Street> observableListWithStreet){
         for (int i = 0; i<observableListWithStreet.size(); i++){
             if (observableListWithStreet.get(i).toString().equals("%s, %s, %s"
                     .formatted(
@@ -68,7 +65,7 @@ public class AddNewStreetOrUpdateItController {
 
     @FXML
     private void add(){
-        if (observableListHasNotDuplicateItem(this.mainStreets)){
+        if (observableListStreetHasNotDuplicateItem(this.mainStreets)){
             this.dao.addNewStreet(
                     this.region.getSelectionModel().getSelectedItem(),
                     this.city.getSelectionModel().getSelectedItem(),
@@ -90,7 +87,7 @@ public class AddNewStreetOrUpdateItController {
 
     @FXML
     private void update(){
-        if (observableListHasNotDuplicateItem(this.mainStreets)){
+        if (observableListStreetHasNotDuplicateItem(this.mainStreets)){
             dao.updateStreet(
                     selectedStreetForUpdate.getId(),
                     this.region.getSelectionModel().getSelectedItem(),

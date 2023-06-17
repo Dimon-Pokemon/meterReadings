@@ -16,13 +16,13 @@ public class TypeMeteringDevice {
         this.capacity = new SimpleIntegerProperty(capacity);
     }
 
-    public TypeMeteringDevice(LongProperty id, StringProperty titleType, StringProperty facility, IntegerProperty accuracy){
-        this(id.get(), titleType.get(), facility.get(), accuracy.get());
+    public TypeMeteringDevice(LongProperty id, StringProperty titleType, StringProperty facility, IntegerProperty capacity){
+        this(id.get(), titleType.get(), facility.get(), capacity.get());
     }
 
     @Override
     public String toString() {
-        return titleType.get();
+        return "%s (Facility: %s; Capacity: %d)".formatted(titleType.get(), facility.get(), capacity.get());
     }
 
 

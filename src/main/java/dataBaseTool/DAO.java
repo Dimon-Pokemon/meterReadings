@@ -1,4 +1,4 @@
-package DAO;
+package dataBaseTool;
 import model.Street;
 import model.TypeMeteringDevice;
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="413.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="413.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddNewTypeMeteringDeviceOrEditItController">
    <children>
       <GridPane layoutX="10.0" layoutY="30.0" prefHeight="90.0" prefWidth="382.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="21.0">
          <columnConstraints>
@@ -29,14 +29,14 @@
                   <Tooltip text="Коммунальная услуга, для учета которой установлен ИПУ" />
                </tooltip></Label>
             <Label text="Введите точность ИПУ:  " GridPane.rowIndex="2" />
-            <ComboBox prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ComboBox fx:id="facility" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <tooltip>
                   <Tooltip text="Коммунальная услуга, для учета которой установлен ИПУ" />
                </tooltip></ComboBox>
-            <TextField prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" />
+            <TextField fx:id="capacity" prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="titleType" prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="167.0" layoutY="152.0" mnemonicParsing="false" text="Добавить тип ИПУ" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.0" />
+      <Button layoutX="167.0" layoutY="152.0" mnemonicParsing="false" onAction="#addNewType" text="Добавить тип ИПУ" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.0" />
    </children>
 </AnchorPane>
