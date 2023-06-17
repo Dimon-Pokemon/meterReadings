@@ -106,7 +106,7 @@ public class MainApp extends Application{
      */
     public void showCatalogTypeMeteringDevice(){
         try {
-            FXMLLoader loader = loadResource("catalogTypeMeteringDevice.fxml");
+            FXMLLoader loader = loadResource("catalogTypeMeteringDevice.fxml.fxml");
             catalogTypeMeteringDeviceLayout = (AnchorPane) loader.load();
 
             catalogTypeMeteringDeviceStage = new Stage();
@@ -176,7 +176,7 @@ public class MainApp extends Application{
      * Перегруженный метод для отображения формы ввода или редактирования улицы (одной записи из справочника улиц).
      */
     public void showAddNewStreetOrEditIt(){
-        showAddNewStreetOrEditIt(null, null);
+        showAddNewStreetOrEditIt("ADD", null);
     }
 
     /**
