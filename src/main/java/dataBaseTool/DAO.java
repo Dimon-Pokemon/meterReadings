@@ -34,7 +34,7 @@ public class DAO {
         ArrayList<ReadingLog> readingLogs = new ArrayList<>();
         String sql = """
                     select "date", serial_number, title, reading, name_street, capacity from reading r\s
-                    join metering_device md on md.serial_number = r.metering_device_fk\s
+                    join metering_device md on md.id = r.metering_device_fk\s
                     join street s on s.id = md.street_fk\s
                     join type_metering_device tmd on tmd.id = md.type_metering_device_fk
                     where s.id = %d
@@ -42,7 +42,7 @@ public class DAO {
         ResultSet readings;
         try{
             if (meteringDevice == null){
-                sql = sql.concat("\norder by date desc");
+                sql = sql.concat("order by date desc");
                 readings = statement.executeQuery(sql.formatted(street.getId()));
             }
             else{
@@ -74,7 +74,7 @@ public class DAO {
             statement.executeUpdate("""
                     insert into reading (metering_device_fk, reading)
                     values (%d, %s)
-                    """.formatted(meteringDevice.getId(), newReading.toString().replace('.', ',')));
+                    """.formatted(meteringDevice.getId(), newReading));
         }catch (SQLException e){
             e.printStackTrace();
         }

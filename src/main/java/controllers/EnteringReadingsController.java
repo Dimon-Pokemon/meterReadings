@@ -50,6 +50,8 @@ public class EnteringReadingsController {
     private DAO dao;
     private Street selectedStreet;
     private MeteringDevice selectedMeteringDevice;
+    private Double maxDiff = 250.0;
+    private Double minDiff = 10.0;
 
     private ObservableList<ReadingLog> readingLogs = FXCollections.observableArrayList();
 
@@ -105,24 +107,42 @@ public class EnteringReadingsController {
 
     /**
      * Метод для добавления новой записи. Привязан к кнопке "Добавить новое показание".
+     * Учитывается то, что новое показание не может быть меньше предыдущего.
+     * Также учитывается тот факт, что показание может быть меньше предыдущего, если счетчик пересек свою границу
+     * и начал считать заново.
      */
     @FXML
     private void addNewMetering(){
+        // Новое показание в виде строки, в которой заменяется ',' на '.'
         String inputReading = newReading.getText().replace(',', '.');
+        // Новое показание, преобразованное к типу Double
         Double inputReadingValue = Double.parseDouble(inputReading);
+        // Максимальное значение счетчика
         Double maxValue = getMaxNumber(selectedMeteringDevice.getCapacity(), selectedMeteringDevice.getAccuracy());
-        if (readingLogs.size()>0 && inputReadingValue>readingLogs.get(0).getReadings() && inputReadingValue<maxValue){
-            Dialog.errorWindow("Ошибка!", "Новое показание не может быть меньше предыдущего");
-        }else if (inputReadingValue>maxValue){
-            dao.addNewMetering(selectedMeteringDevice, inputReadingValue-maxValue);
-            Dialog.successfulInfoWindow("Успех!", "Новое показание прибора добавлено в журнал показаний! \n Был достигнут предел измерительных возможностей счетчика - показания записались как \"введенное вами показание\" - \"максимальное возможное показание\"");
-        } else {
-            dao.addNewMetering(selectedMeteringDevice, inputReadingValue);
-            Dialog.successfulInfoWindow("Успех!", "Новое показание прибора добавлено в журнал показаний!");
+        if (readingLogs.size()>0){// Есть ли предыдущие показания
+            Double lastValue = readingLogs.get(0).getReadings(); // Получение предыдущего показания
+            if (inputReadingValue<lastValue){
+                /**
+                 Разность между прошлым и новым показанием с предположением, что счетчик мог пересечь свое предельное значение
+                 и потому новое показание меньше предыдущего
+                 */
+                Double diff = maxValue - lastValue + inputReadingValue;
+                if (diff > maxDiff)
+                    Dialog.errorWindow("Ошибка!", "Новое показание не может быть меньше предыдущего");
+            }
+            if (inputReadingValue-lastValue>maxDiff)
+                Dialog.errorWindow("Ошибка!", "Новое показание не может отличаться от последнего более чем на %f ед.и.".formatted(maxDiff));
+            else if (inputReadingValue-lastValue<minDiff) {
+                Dialog.errorWindow("Ошибка!", "Новое показание должно отличаться от старого минимум на %f ед.и.".formatted(minDiff));
+            }else {
+                dao.addNewMetering(selectedMeteringDevice, inputReadingValue);
+
+                readingLogs.removeAll(readingLogs);
+                readingLogs.addAll(dao.getReadingLog(selectedStreet, selectedMeteringDevice));
+
+                Dialog.successfulInfoWindow("Успех!", "Новое показание прибора добавлено в журнал показаний!");
+            }
         }
-
-
-
     }
 
 
