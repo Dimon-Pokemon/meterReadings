@@ -2,58 +2,60 @@ package model;
 
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javafx.beans.property.*;
 
 public class ReadingLog {
 
-    private final ObjectProperty<LocalDate> date;
-    private final StringProperty nameMeteringDevice;
+    private final ObjectProperty<Date> date;
+    private final StringProperty serialNumberMeteringDevice;
     private final StringProperty titleTypeMeteringDevice;
     private final DoubleProperty readings;
     private final StringProperty street;
-    private final IntegerProperty accuracy;
-    public ReadingLog(LocalDate date, String nameMeteringDevice, String titleTypeMeteringDevice, Double readings, String street, Integer accuracy){
-        this.date = new SimpleObjectProperty<LocalDate>(date);
-        this.nameMeteringDevice = new SimpleStringProperty(nameMeteringDevice);
+    private final IntegerProperty capacity;
+    public ReadingLog(Date date, String serialNumberMeteringDevice, String titleTypeMeteringDevice, Double readings, String street, Integer capacity){
+        this.date = new SimpleObjectProperty<Date>(date);
+        this.serialNumberMeteringDevice = new SimpleStringProperty(serialNumberMeteringDevice);
         this.titleTypeMeteringDevice = new SimpleStringProperty(titleTypeMeteringDevice);
         this.readings = new SimpleDoubleProperty(readings);
         this.street = new SimpleStringProperty(street);
-        this.accuracy = new SimpleIntegerProperty(accuracy);
+        this.capacity = new SimpleIntegerProperty(capacity);
     }
 
-    public ReadingLog(ObjectProperty date,
-               StringProperty nameMeteringDevice,
-               StringProperty titleTypeMeteringDevice,
-               DoubleProperty readings,
-               StringProperty street,
-               IntegerProperty accuracy)
+    public ReadingLog(
+            ObjectProperty date,
+            StringProperty serialNumberMeteringDevice,
+            StringProperty titleTypeMeteringDevice,
+            DoubleProperty readings,
+            StringProperty street,
+            IntegerProperty capacity)
     {
-        this((LocalDate) date.get(), nameMeteringDevice.get(), titleTypeMeteringDevice.get(), readings.get(), street.get(), accuracy.get());
+        this((Date) date.get(), serialNumberMeteringDevice.get(), titleTypeMeteringDevice.get(), readings.get(), street.get(), capacity.get());
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date.get();
     }
 
-    public ObjectProperty<LocalDate> getDateProperty() {
+    public ObjectProperty<Date> getDateProperty() {
         return date;
     }
 
-    public void setDate(LocalDate date){
+    public void setDate(Date date){
         this.date.set(date);
     }
 
-    public String getNameMeteringDevice() {
-        return nameMeteringDevice.get();
+    public String getSerialNumberMeteringDevice() {
+        return serialNumberMeteringDevice.get();
     }
 
-    public StringProperty getNameMeteringDeviceProperty() {
-        return nameMeteringDevice;
+    public StringProperty getSerialNumberMeteringDeviceProperty() {
+        return serialNumberMeteringDevice;
     }
 
-    public void setNameMeteringDevice(String nameMeteringDevice){
-        this.nameMeteringDevice.set(nameMeteringDevice);
+    public void setSerialNumberMeteringDevice(String serialNumberMeteringDevice){
+        this.serialNumberMeteringDevice.set(serialNumberMeteringDevice);
     }
 
     public String getTitleTypeMeteringDevice() {
@@ -92,15 +94,15 @@ public class ReadingLog {
         this.street.set(street);
     }
 
-    public int getAccuracy() {
-        return accuracy.get();
+    public int getCapacity() {
+        return capacity.get();
     }
 
-    public IntegerProperty getAccuracyProperty() {
-        return accuracy;
+    public IntegerProperty getCapacityProperty() {
+        return capacity;
     }
 
-    public void setAccuracy(Integer accuracy){
-        this.accuracy.set(accuracy);
+    public void setCapacity(Integer capacity){
+        this.capacity.set(capacity);
     }
 }

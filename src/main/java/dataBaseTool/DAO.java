@@ -30,15 +30,32 @@ public class DAO {
     }
 
 
-    public ArrayList<ReadingLog> getReadingLog(Street street, MeteringDevice meteringDeivce){
+    public ArrayList<ReadingLog> getReadingLog(Street street, MeteringDevice meteringDevice){
         ArrayList<ReadingLog> readingLogs = new ArrayList<>();
+        String sql = """
+                    select "date", serial_number, title, reading, name_street, capacity from readings r\s
+                    join metering_device md on md.serial_number = r.serial_number_metering_device_fk\s
+                    join street s on s.id = md.street_fk\s
+                    join type_metering_device tmd on tmd.id = md.type_metering_device_fk
+                    where s.id = %d
+                    """;
+        ResultSet readings;
         try{
-            ResultSet readings = statement.executeQuery("""
-                    select * from readings
-                    
-                    """);
+            if (meteringDevice == null)
+                readings = statement.executeQuery(sql.formatted(street.getId()));
+            else{
+                sql = sql.concat(" and serial_number = %d");
+                readings = statement.executeQuery(sql.formatted(street.getId(), meteringDevice.getSerialNumber()));
+            }
             while (readings.next()){
-                // Other code
+                readingLogs.add(new ReadingLog(
+                        readings.getDate("date"),
+                        readings.getString("serial_number"),
+                        readings.getString("title"),
+                        readings.getDouble("reading"),
+                        readings.getString("name_street"),
+                        readings.getInt("capacity")
+                ));
             }
         }catch (SQLException e ){
             e.printStackTrace();
@@ -46,6 +63,9 @@ public class DAO {
         return readingLogs;
     }
 
+    public ArrayList<ReadingLog> getReadingLog(Street street){
+        return getReadingLog(street, null);
+    }
     public ArrayList<MeteringDevice> getMeteringDevices(Street street){
         ArrayList<MeteringDevice> meteringDevices = new ArrayList<>();
         try{
@@ -188,8 +208,8 @@ public class DAO {
         try{
             statement.executeUpdate("""
                     delete from type_metering_device tmd
-                    where tmd.id = id
-                    """);
+                    where tmd.id = %d
+                    """.formatted(id));
         }catch (SQLException e){
             e.printStackTrace();
         }
