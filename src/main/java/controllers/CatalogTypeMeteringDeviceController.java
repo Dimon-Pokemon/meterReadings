@@ -1,11 +1,13 @@
 package controllers;
 
 import javafx.fxml.FXML;
+//import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import main.MainApp;
-import dataBaseTool.DAO;
+import main.DAO;
 import model.TypeMeteringDevice;
+import dialog.Dialog;
 
 public class CatalogTypeMeteringDeviceController {
 
@@ -40,7 +42,11 @@ public class CatalogTypeMeteringDeviceController {
 
     @FXML
     private void editType(){
-        mainApp.showAddNewTypeMeteringDeviceOrEditIt("UPDATE", tableTypeMeteringDevice.getSelectionModel().getSelectedItem());
+        TypeMeteringDevice selectedTypeMeteringDevice = tableTypeMeteringDevice.getSelectionModel().getSelectedItem();
+        if (selectedTypeMeteringDevice != null)
+            mainApp.showAddNewTypeMeteringDeviceOrEditIt("UPDATE", selectedTypeMeteringDevice);
+        else
+            Dialog.errorWindow("Внимание", "Вы не выбрали тип прибора учета из таблицы!");
     }
 
     @FXML

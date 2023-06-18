@@ -1,4 +1,4 @@
-package dataBaseTool;
+package main;
 import model.MeteringDevice;
 import model.ReadingLog;
 import model.Street;
@@ -201,7 +201,7 @@ public class DAO {
     public void addNewMeteringDevice(Long serialNumber, Long streetFk, Long typeMeteringDeviceFk){
         try{
             statement.executeUpdate("""
-                        insert into metering_device
+                        insert into metering_device (serial_number, street_fk, type_metering_device_fk)
                         values (%d, '%s', %d)
                         """.formatted(serialNumber, streetFk, typeMeteringDeviceFk));
         }catch (SQLException e){

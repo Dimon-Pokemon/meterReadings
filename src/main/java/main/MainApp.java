@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.MeteringDevice;
 import model.ReadingLog;
-import dataBaseTool.DAO;
 import model.Street;
 import model.TypeMeteringDevice;
 

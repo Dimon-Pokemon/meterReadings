@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;
-import dataBaseTool.DAO;
+import main.DAO;
 import model.TypeMeteringDevice;
 import dialog.Dialog;
 

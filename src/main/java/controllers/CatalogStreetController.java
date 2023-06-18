@@ -6,7 +6,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import main.MainApp;
 import model.Street;
-import dataBaseTool.DAO;
+import main.DAO;
 
 
 public class CatalogStreetController {

@@ -1,5 +1,4 @@
 package controllers;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.MainApp;
-import dataBaseTool.DAO;
+import main.DAO;
 import model.Street;
 import dialog.Dialog;
 
