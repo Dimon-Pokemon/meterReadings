@@ -34,6 +34,8 @@ public class MainApp extends Application{
 
     private ObservableList<ReadingLog> readingsLog = FXCollections.observableArrayList();
     private ObservableList<Street> streets = FXCollections.observableArrayList();
+    private ObservableList<String> regions = FXCollections.observableArrayList();
+    private ObservableList<String> cities = FXCollections.observableArrayList();
     private ObservableList<TypeMeteringDevice> typesMeteringDevice = FXCollections.observableArrayList();
     private ObservableList<MeteringDevice> meteringDevices = FXCollections.observableArrayList();
     private ObservableList<String> facilities = FXCollections.observableArrayList();
@@ -49,6 +51,10 @@ public class MainApp extends Application{
     public ObservableList<String> getFacilities(){return facilities;}
 
     public ObservableList<MeteringDevice> getMeteringDevices(){return meteringDevices;}
+
+    public ObservableList<String> getRegions(){return regions;}
+
+    public ObservableList<String> getCities(){return cities;}
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -214,6 +220,8 @@ public class MainApp extends Application{
     public MainApp(){
         this.dao = new DAO();
         this.streets.addAll(dao.getStreets());
+        this.regions.addAll(dao.getRegionOrCity("region"));
+        this.cities.addAll(dao.getRegionOrCity("city"));
         this.typesMeteringDevice.addAll(dao.getTypesMeteringDevice());
         this.facilities.addAll(dao.getFacilities());
     }

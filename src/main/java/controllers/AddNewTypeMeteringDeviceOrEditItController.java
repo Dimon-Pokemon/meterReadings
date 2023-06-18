@@ -21,6 +21,8 @@ public class AddNewTypeMeteringDeviceOrEditItController {
     @FXML
     private TextField capacity;
     @FXML
+    private TextField accuracy;
+    @FXML
     private Button button;
 
     private MainApp mainApp;
@@ -29,6 +31,7 @@ public class AddNewTypeMeteringDeviceOrEditItController {
     private String inputTitleType;
     private String inputFacility;
     private Integer inputCapacity;
+    private Integer inputAccuracy;
 
     private ObservableList<TypeMeteringDevice> mainTypeMeteringDevice;
 
@@ -51,6 +54,7 @@ public class AddNewTypeMeteringDeviceOrEditItController {
         inputTitleType = this.titleType.getText(); // Получение введенного наименования типа ИПУ через текстовое поле ввода
         inputFacility = this.facility.getSelectionModel().getSelectedItem(); // Получение выбранной через выпадающий список услуги
         inputCapacity = Integer.parseInt(this.capacity.getText()); // Получение разрядности, указанную через текстовое поле ввода
+        inputAccuracy = Integer.parseInt(this.accuracy.getText()); // Получение точности ИПУ, т.е. кол-во знаков после запятой
     }
 
     @FXML
@@ -60,7 +64,8 @@ public class AddNewTypeMeteringDeviceOrEditItController {
             dao.addNewTypeMeteringDevice(
                     inputTitleType,
                     inputFacility,
-                    inputCapacity
+                    inputCapacity,
+                    inputAccuracy
             );
             Dialog.successfulInfoWindow("Успех!", "Новый тип прибора учета успешно добавлен в спарвочник ИПУ.");
 
@@ -79,7 +84,8 @@ public class AddNewTypeMeteringDeviceOrEditItController {
             dao.updateTypeMeteringDevice(
                     inputTitleType,
                     inputFacility,
-                    inputCapacity
+                    inputCapacity,
+                    inputAccuracy
             );
             Dialog.successfulInfoWindow("Успех!", "Тип прибора был изменен.");
 
@@ -95,6 +101,7 @@ public class AddNewTypeMeteringDeviceOrEditItController {
         titleType.setText(typeMeteringDeviceForEdit.getTitleType());
         facility.getSelectionModel().select(typeMeteringDeviceForEdit.getFacility());
         capacity.setText(typeMeteringDeviceForEdit.getCapacity().toString());
+        accuracy.setText(typeMeteringDeviceForEdit.getAccuracy().toString());
 
         this.button.setText("Изменить");
 

@@ -12,12 +12,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="208.0" prefWidth="413.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddNewTypeMeteringDeviceOrEditItController">
    <children>
-      <GridPane layoutX="10.0" layoutY="30.0" prefHeight="90.0" prefWidth="382.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="21.0">
+      <GridPane layoutX="10.0" layoutY="30.0" prefHeight="103.0" prefWidth="382.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="21.0">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="218.0" />
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="170.0" minWidth="10.0" prefWidth="142.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -28,13 +29,15 @@
                <tooltip>
                   <Tooltip text="Коммунальная услуга, для учета которой установлен ИПУ" />
                </tooltip></Label>
-            <Label text="Введите точность ИПУ:  " GridPane.rowIndex="2" />
+            <Label text="Введите разрядность ИПУ:  " GridPane.rowIndex="2" />
             <ComboBox fx:id="facility" prefHeight="25.0" prefWidth="169.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <tooltip>
                   <Tooltip text="Коммунальная услуга, для учета которой установлен ИПУ" />
                </tooltip></ComboBox>
             <TextField fx:id="capacity" prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="titleType" prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" />
+            <Label text="Введите точность ИПУ:  " GridPane.rowIndex="3" />
+            <TextField fx:id="accuracy" prefHeight="25.0" prefWidth="98.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Button fx:id="button" layoutX="167.0" layoutY="152.0" mnemonicParsing="false" onAction="#add" text="Добавить тип ИПУ" AnchorPane.leftAnchor="144.0" AnchorPane.rightAnchor="144.0" />

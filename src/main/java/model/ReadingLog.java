@@ -14,6 +14,8 @@ public class ReadingLog {
     private final DoubleProperty readings;
     private final StringProperty street;
     private final IntegerProperty capacity;
+
+
     public ReadingLog(Date date, String serialNumberMeteringDevice, String titleTypeMeteringDevice, Double readings, String street, Integer capacity){
         this.date = new SimpleObjectProperty<Date>(date);
         this.serialNumberMeteringDevice = new SimpleStringProperty(serialNumberMeteringDevice);

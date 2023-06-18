@@ -49,6 +49,6 @@
             <TextField fx:id="newReading" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="button" layoutX="265.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="224.0" text="Добавить новое показание" />
+      <Button fx:id="button" layoutX="265.0" layoutY="172.0" mnemonicParsing="false" onAction="#addNewMetering" prefHeight="25.0" prefWidth="224.0" text="Добавить новое показание" />
    </children>
 </AnchorPane>

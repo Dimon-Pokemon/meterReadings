@@ -33,18 +33,20 @@ public class DAO {
     public ArrayList<ReadingLog> getReadingLog(Street street, MeteringDevice meteringDevice){
         ArrayList<ReadingLog> readingLogs = new ArrayList<>();
         String sql = """
-                    select "date", serial_number, title, reading, name_street, capacity from readings r\s
-                    join metering_device md on md.serial_number = r.serial_number_metering_device_fk\s
+                    select "date", serial_number, title, reading, name_street, capacity from reading r\s
+                    join metering_device md on md.serial_number = r.metering_device_fk\s
                     join street s on s.id = md.street_fk\s
                     join type_metering_device tmd on tmd.id = md.type_metering_device_fk
                     where s.id = %d
                     """;
         ResultSet readings;
         try{
-            if (meteringDevice == null)
+            if (meteringDevice == null){
+                sql = sql.concat("\norder by date desc");
                 readings = statement.executeQuery(sql.formatted(street.getId()));
+            }
             else{
-                sql = sql.concat(" and serial_number = %d");
+                sql = sql.concat(" and serial_number = %d\norder by date desc");
                 readings = statement.executeQuery(sql.formatted(street.getId(), meteringDevice.getSerialNumber()));
             }
             while (readings.next()){
@@ -66,26 +68,53 @@ public class DAO {
     public ArrayList<ReadingLog> getReadingLog(Street street){
         return getReadingLog(street, null);
     }
+
+    public void addNewMetering(MeteringDevice meteringDevice, Double newReading){
+        try{
+            statement.executeUpdate("""
+                    insert into reading (metering_device_fk, reading)
+                    values (%d, %s)
+                    """.formatted(meteringDevice.getId(), newReading.toString().replace('.', ',')));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList<MeteringDevice> getMeteringDevices(Street street){
         ArrayList<MeteringDevice> meteringDevices = new ArrayList<>();
         try{
             ResultSet resultSQL = statement.executeQuery("""
-                    select name_street, title, serial_number from metering_device md
+                    select md.id, name_street, title, serial_number, capacity, accuracy from metering_device md
                     join street s on s.id = md.street_fk
                     join type_metering_device tmp on tmp.id = md.type_metering_device_fk
                     where s.id = %d;
                     """.formatted(street.getId()));
             while(resultSQL.next()){
                 meteringDevices.add(new MeteringDevice(
+                        resultSQL.getInt("id"),
                         resultSQL.getString("name_street"),
                         resultSQL.getString("title"),
-                        resultSQL.getLong("serial_number")
+                        resultSQL.getLong("serial_number"),
+                        resultSQL.getInt("capacity"),
+                        resultSQL.getInt("accuracy")
                 ));
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
         return meteringDevices;
+    }
+
+    public ArrayList<String> getRegionOrCity(String that){
+        ArrayList<String> result = new ArrayList<>();
+        try{
+            statement.execute("""
+                    select * from %s
+                    """.formatted(that));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return  result;
     }
 
     public ArrayList<Street> getStreets(){
@@ -96,8 +125,8 @@ public class DAO {
             while(resultQuery.next()){
                 streets.add(new Street(
                         resultQuery.getLong("id"),
-                        resultQuery.getString("region"),
-                        resultQuery.getString("city"),
+                        resultQuery.getString("region_fk"),
+                        resultQuery.getString("city_fk"),
                         resultQuery.getString("name_street")
                 ));
             }
@@ -180,25 +209,25 @@ public class DAO {
         }
     }
 
-    public void addNewTypeMeteringDevice(String title, String facilityFk, Integer capacity){
+    public void addNewTypeMeteringDevice(String title, String facilityFk, Integer capacity, Integer accuracy){
         try {
             statement.executeUpdate("""
                     insert into type_metering_device
                     (title, facility_fk, capacity)
                     values
-                    ('%s', '%s', %d)
-                    """.formatted(title, facilityFk, capacity));
+                    ('%s', '%s', %d, %d)
+                    """.formatted(title, facilityFk, capacity, accuracy));
         }catch (SQLException e){
             e.printStackTrace();
         }
     }
 
-    public void updateTypeMeteringDevice(String title, String facilityFk, Integer capacity){
+    public void updateTypeMeteringDevice(String title, String facilityFk, Integer capacity, Integer accuracy){
         try{
             statement.executeUpdate("""
                     update type_metering_device
-                    set title = '%s', facility_fk = '%s', capacity = %d
-                    """.formatted(title, facilityFk, capacity));
+                    set title = '%s', facility_fk = '%s', capacity = %d, accuracy = %d
+                    """.formatted(title, facilityFk, capacity, accuracy));
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -226,7 +255,8 @@ public class DAO {
                         resultSQL.getLong("id"),
                         resultSQL.getString("title"),
                         resultSQL.getString("facility_fk"),
-                        resultSQL.getInt("capacity")
+                        resultSQL.getInt("capacity"),
+                        resultSQL.getInt("accuracy")
                 ));
             }
         }catch(SQLException e){

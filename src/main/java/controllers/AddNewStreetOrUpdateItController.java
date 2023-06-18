@@ -114,17 +114,17 @@ public class AddNewStreetOrUpdateItController {
         this.mainStreets = mainApp.getStreets();
 
 
-        ObservableList<String> regions = FXCollections.observableArrayList();
-        regions.addAll(mainApp.getStreets().stream().map(street -> {
-            return street.getRegion();
-        }).distinct().toList());
-        this.region.setItems(regions);
+//        ObservableList<String> regions = FXCollections.observableArrayList();
+//        regions.addAll(mainApp.getStreets().stream().map(street -> {
+//            return street.getRegion();
+//        }).distinct().toList());
+        this.region.setItems(mainApp.getRegions());
 
-        ObservableList<String> cities = FXCollections.observableArrayList();
-        cities.addAll(mainApp.getStreets().stream().map(street -> {
-            return street.getCity();
-        }).distinct().toList());
-        this.city.setItems(cities);
+//        ObservableList<String> cities = FXCollections.observableArrayList();
+//        cities.addAll(mainApp.getStreets().stream().map(street -> {
+//            return street.getCity();
+//        }).distinct().toList());
+        this.city.setItems(mainApp.getCities());
     }
 
     public void setDao(DAO dao){

@@ -8,16 +8,18 @@ public class TypeMeteringDevice {
     private final StringProperty titleType;
     private final StringProperty facility;
     private final IntegerProperty capacity;
+    private final IntegerProperty accuracy;
 
-    public TypeMeteringDevice(Long id, String titleType, String facility, Integer capacity){
+    public TypeMeteringDevice(Long id, String titleType, String facility, Integer capacity, Integer accuracy){
         this.id = new SimpleLongProperty(id);
         this.titleType = new SimpleStringProperty(titleType);
         this.facility = new SimpleStringProperty(facility);
         this.capacity = new SimpleIntegerProperty(capacity);
+        this.accuracy = new SimpleIntegerProperty(accuracy);
     }
 
-    public TypeMeteringDevice(LongProperty id, StringProperty titleType, StringProperty facility, IntegerProperty capacity){
-        this(id.get(), titleType.get(), facility.get(), capacity.get());
+    public TypeMeteringDevice(LongProperty id, StringProperty titleType, StringProperty facility, IntegerProperty capacity, IntegerProperty accuracy){
+        this(id.get(), titleType.get(), facility.get(), capacity.get(), accuracy.get());
     }
 
     @Override
@@ -72,4 +74,14 @@ public class TypeMeteringDevice {
     public void setCapacity(Integer newAccuracy){
         this.capacity.set(newAccuracy);
     }
+
+    public Integer getAccuracy() {
+        return accuracy.get();
+    }
+
+    public IntegerProperty getAccuracyProperty() {
+        return accuracy;
+    }
+
+    public void setAccuracy(Integer newValue){this.accuracy.set(newValue);}
 }
