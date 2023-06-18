@@ -202,7 +202,7 @@ public class DAO {
         try{
             statement.executeUpdate("""
                         insert into metering_device
-                        values (%d, '%s', '%s')
+                        values (%d, '%s', %d)
                         """.formatted(serialNumber, streetFk, typeMeteringDeviceFk));
         }catch (SQLException e){
             e.printStackTrace();

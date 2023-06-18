@@ -142,6 +142,13 @@ public class EnteringReadingsController {
 
                 Dialog.successfulInfoWindow("Успех!", "Новое показание прибора добавлено в журнал показаний!");
             }
+        }else{
+            dao.addNewMetering(selectedMeteringDevice, inputReadingValue);
+
+            readingLogs.removeAll(readingLogs);
+            readingLogs.addAll(dao.getReadingLog(selectedStreet, selectedMeteringDevice));
+
+            Dialog.successfulInfoWindow("Успех!", "Новое показание прибора добавлено в журнал показаний!");
         }
     }
 
