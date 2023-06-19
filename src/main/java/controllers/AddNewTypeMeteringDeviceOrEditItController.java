@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import main.MainApp;
 import main.DAO;
 import model.TypeMeteringDevice;
-import dialog.Dialog;
 
 public class AddNewTypeMeteringDeviceOrEditItController {
 

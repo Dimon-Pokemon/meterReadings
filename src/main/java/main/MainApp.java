@@ -74,7 +74,7 @@ public class MainApp extends Application{
             FXMLLoader loader = loadResource("enteringReadings.fxml");
             rootLayout = (AnchorPane) loader.load();
 
-            primaryStage = new Stage();
+            this.primaryStage.setTitle("Ввод показаний ИПУ");
             EnteringReadingsController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDao(dao);
@@ -97,6 +97,7 @@ public class MainApp extends Application{
             addNewMeteringDeviceLayout = (AnchorPane) loader.load();
 
             addNewMeteringDeviceStage = new Stage();
+            addNewMeteringDeviceStage.setTitle("Добавление нового ИПУ");
             AddNewMeteringDeviceController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDao(dao);
@@ -118,6 +119,7 @@ public class MainApp extends Application{
             catalogTypeMeteringDeviceLayout = (AnchorPane) loader.load();
 
             catalogTypeMeteringDeviceStage = new Stage();
+            catalogTypeMeteringDeviceStage.setTitle("Справочник типов ИПУ");
             CatalogTypeMeteringDeviceController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDao(dao);
@@ -144,7 +146,7 @@ public class MainApp extends Application{
             controller.setDao(dao);
 
             catalogStreetStage = new Stage();
-
+            catalogStreetStage.setTitle("Справочник улиц");
             Scene scene = new Scene(catalogStreetLayout);
             catalogStreetStage.setScene(scene);
             catalogStreetStage.setResizable(false);
@@ -167,12 +169,16 @@ public class MainApp extends Application{
             AddNewStreetOrUpdateItController controller = loader.getController();
             controller.setMainApp(this);
             controller.setDao(dao);
-            if (mode.equals("UPDATE")) {
-                controller.setValueFromSelectedStreetForUpdate(selectedStreet);
-            }
+
 
             addNewStreetStage = new Stage();
 
+            if (mode.equals("UPDATE")) {
+                controller.setValueFromSelectedStreetForUpdate(selectedStreet);
+                addNewStreetStage.setTitle("Изменение улицы");
+            }else{
+                addNewStreetStage.setTitle("Добавление улицы");
+            }
             Scene scene = new Scene(addNewStreetLayout);
             addNewStreetStage.setScene(scene);
             addNewStreetStage.show();
@@ -197,11 +203,15 @@ public class MainApp extends Application{
             controller.setMainApp(this);
             controller.setDao(this.dao);
 
-            if (mode.equals("UPDATE")){
-                controller.setDataForUIElementsForEditTypeMeteringDevice(typeMeteringDevice);
-            }
 
             addNewTypeMeteringDeviceOrEditItStage = new Stage();
+
+            if (mode.equals("UPDATE")){
+                controller.setDataForUIElementsForEditTypeMeteringDevice(typeMeteringDevice);
+                addNewTypeMeteringDeviceOrEditItStage.setTitle("Изменение типа ИПУ");
+            }else{
+                addNewTypeMeteringDeviceOrEditItStage.setTitle("Добавление нового типа ИПУ");
+            }
 
             Scene scene = new Scene(addNewTypeMeteringDeviceOrEditItLayout);
             addNewTypeMeteringDeviceOrEditItStage.setScene(scene);

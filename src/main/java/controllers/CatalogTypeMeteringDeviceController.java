@@ -7,7 +7,6 @@ import javafx.scene.control.TableView;
 import main.MainApp;
 import main.DAO;
 import model.TypeMeteringDevice;
-import dialog.Dialog;
 
 public class CatalogTypeMeteringDeviceController {
 

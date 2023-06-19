@@ -10,7 +10,6 @@ import main.MainApp;
 import model.MeteringDevice;
 import model.Street;
 import model.TypeMeteringDevice;
-import dialog.Dialog;
 
 public class AddNewMeteringDeviceController {
 

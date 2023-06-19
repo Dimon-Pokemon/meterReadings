@@ -1,4 +1,4 @@
-package dialog;
+package controllers;
 
 import javafx.scene.control.Alert;
 

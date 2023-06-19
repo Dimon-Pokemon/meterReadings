@@ -10,7 +10,6 @@ import main.DAO;
 import model.MeteringDevice;
 import model.ReadingLog;
 import model.Street;
-import dialog.Dialog;
 
 import java.util.Date;
 

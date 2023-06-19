@@ -1,8 +1,9 @@
 package main;
 
+import controllers.Dialog;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import dialog.Dialog;
 
 public class CheckInput {
     public static boolean serialNumberCheck(String serialNumber){
