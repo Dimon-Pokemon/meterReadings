@@ -8,24 +8,25 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CatalogTypeMeteringDeviceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="218.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CatalogTypeMeteringDeviceController">
    <children>
-      <VBox layoutY="9.0" prefHeight="211.0" prefWidth="531.0">
+      <VBox layoutY="9.0" prefHeight="211.0" prefWidth="531.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <HBox prefHeight="35.0" prefWidth="354.0">
+            <HBox prefHeight="37.0" prefWidth="563.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#deleteType" prefHeight="25.0" prefWidth="117.0" text="Удалить" />
                   <Button mnemonicParsing="false" onAction="#addType" prefHeight="25.0" prefWidth="117.0" text="Добавить" />
                   <Button mnemonicParsing="false" onAction="#editType" prefHeight="25.0" prefWidth="117.0" text="Редактировать" />
                </children>
             </HBox>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="175.0" prefWidth="530.0" vbarPolicy="NEVER">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="175.0" prefWidth="579.0" vbarPolicy="NEVER">
                <content>
-                  <TableView fx:id="tableTypeMeteringDevice" prefHeight="174.0" prefWidth="530.0">
+                  <TableView fx:id="tableTypeMeteringDevice" prefHeight="174.0" prefWidth="602.0">
                      <columns>
                         <TableColumn fx:id="titleType" prefWidth="217.0" text="Наименование ИПУ" />
                         <TableColumn fx:id="facility" prefWidth="203.0" text="Услуга" />
-                        <TableColumn fx:id="capacity" minWidth="0.0" prefWidth="109.0" text="Разрядность" />
+                        <TableColumn fx:id="capacity" minWidth="0.0" prefWidth="94.0" text="Разрядность" />
+                        <TableColumn fx:id="accuracy" prefWidth="90.0" text="Точность" />
                      </columns>
                   </TableView>
                </content>

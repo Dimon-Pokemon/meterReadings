@@ -108,9 +108,12 @@ public class DAO {
     public ArrayList<String> getRegionOrCity(String that){
         ArrayList<String> result = new ArrayList<>();
         try{
-            statement.execute("""
+            ResultSet resultSet = statement.executeQuery("""
                     select * from %s
                     """.formatted(that));
+            while(resultSet.next()){
+                result.add(resultSet.getString(1));
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -154,8 +157,8 @@ public class DAO {
             statement.executeUpdate("""
                     delete
                     from street
-                    where region = %s and city = %s and street = %s
-                    """);
+                    where region_fk = %s and city_fk = %s and street = %s
+                    """.formatted(streetItem[0], streetItem[1], streetItem[2]));
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -164,7 +167,7 @@ public class DAO {
     public void addNewStreet(String region, String city, String street){
         try{
             statement.executeUpdate("""
-                    insert into street (region, city, name_street)
+                    insert into street (region_fk, city_fk, name_street)
                     values ('%s', '%s', '%s')
                     """.formatted(region, city, street));
         }catch (SQLException e){
@@ -176,7 +179,7 @@ public class DAO {
         try{
             statement.executeUpdate("""
                     update street
-                    set region = '%s', city = '%s', name_street = '%s'
+                    set region_fk = '%s', city_fk = '%s', name_street = '%s'
                     where id = %d
                     """.formatted(region, city, street, id));
         }catch (SQLException e){
@@ -227,7 +230,8 @@ public class DAO {
             statement.executeUpdate("""
                     update type_metering_device
                     set title = '%s', facility_fk = '%s', capacity = %d, accuracy = %d
-                    """.formatted(title, facilityFk, capacity, accuracy));
+                    where title = '%s'
+                    """.formatted(title, facilityFk, capacity, accuracy, title));
         }catch (SQLException e){
             e.printStackTrace();
         }

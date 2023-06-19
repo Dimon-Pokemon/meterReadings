@@ -22,6 +22,9 @@ public class CatalogTypeMeteringDeviceController {
     @FXML
     private TableColumn<TypeMeteringDevice, Integer> capacity;
 
+    @FXML
+    private TableColumn<TypeMeteringDevice, Integer> accuracy;
+
     private MainApp mainApp;
     private DAO dao;
 
@@ -53,6 +56,7 @@ public class CatalogTypeMeteringDeviceController {
         titleType.setCellValueFactory(cellData -> cellData.getValue().getTitleTypeProperty());
         facility.setCellValueFactory(cellData -> cellData.getValue().getFacilityProperty());
         capacity.setCellValueFactory(cellData -> cellData.getValue().getCapacityProperty().asObject());
+        accuracy.setCellValueFactory(cellData -> cellData.getValue().getAccuracyProperty().asObject());
     }
 
     public void CatalogTypeMeteringDeviceController(){

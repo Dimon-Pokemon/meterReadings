@@ -40,7 +40,8 @@ public class CatalogStreetController {
             dao.deleteStreet(streetId);
             int selectedIndex = tableStreet.getSelectionModel().getSelectedIndex();
             tableStreet.getItems().remove(selectedIndex);
-        }
+        } else
+            Dialog.errorWindow("Не выбрана улица для удаления", "Выберите улицу для удаления.");
     }
 
     @FXML
@@ -50,7 +51,12 @@ public class CatalogStreetController {
 
     @FXML
     private void editStreet(){
-        mainApp.showAddNewStreetOrEditIt("UPDATE", tableStreet.getSelectionModel().selectedItemProperty().getValue());
+        Street selectedStreet = tableStreet.getSelectionModel().selectedItemProperty().getValue();
+
+        if(selectedStreet == null)
+            Dialog.errorWindow("Не выбрана улица для редактирования", "Выберите улицу для редактирования");
+        else
+            mainApp.showAddNewStreetOrEditIt("UPDATE", selectedStreet);
     }
 
     @FXML

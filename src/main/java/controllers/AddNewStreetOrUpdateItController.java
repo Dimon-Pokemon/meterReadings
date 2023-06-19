@@ -28,6 +28,9 @@ public class AddNewStreetOrUpdateItController {
     private DAO dao;
     private ObservableList<Street> mainStreets;
     private Street selectedStreetForUpdate;
+    private String selectedRegion;
+    private String selectedCity;
+    private String inputNameStreet;
 
     public AddNewStreetOrUpdateItController(){
     }
@@ -61,20 +64,43 @@ public class AddNewStreetOrUpdateItController {
         return true;
     }
 
+    private boolean getInput(){
+        this.selectedRegion = this.region.getSelectionModel().getSelectedItem();
+        if (selectedRegion == null){
+            Dialog.errorWindow("Ошибка. Регион не выбран!", "Выберите регион.");
+            return false;
+        }
+
+        this.selectedCity = this.city.getSelectionModel().getSelectedItem();
+        if (selectedCity == null){
+            Dialog.errorWindow("Ошибка. Город не выбран!", "Выберите город.");
+            return false;
+        }
+
+        this.inputNameStreet = this.street.getText();
+        if (inputNameStreet == ""){
+            Dialog.errorWindow("Ошибка. Наименование улицы не введено!", "Введите наименование улицы.");
+            return false;
+        }
+        return true;
+    }
+
     @FXML
     private void add(){
         if (observableListStreetHasNotDuplicateItem(this.mainStreets)){
-            this.dao.addNewStreet(
-                    this.region.getSelectionModel().getSelectedItem(),
-                    this.city.getSelectionModel().getSelectedItem(),
-                    this.street.getText()
-            );
-            this.mainStreets.removeAll(this.mainStreets);
-            this.mainStreets.addAll(this.dao.getStreets());
+            if (getInput()) {
+                this.dao.addNewStreet(
+                        selectedRegion,
+                        selectedCity,
+                        inputNameStreet
+                );
+                this.mainStreets.removeAll(this.mainStreets);
+                this.mainStreets.addAll(this.dao.getStreets());
 
-            Dialog.successfulInfoWindow("Успех!", "Улица успешно добавлена в справочнк улиц!");
+                Dialog.successfulInfoWindow("Успех!", "Улица успешно добавлена в справочнк улиц!");
 
-            street.clear();
+                street.clear();
+            }
         } else{
             Dialog.errorWindow(
                     "Ошибка! Дубликат улицы.",
@@ -86,19 +112,21 @@ public class AddNewStreetOrUpdateItController {
     @FXML
     private void update(){
         if (observableListStreetHasNotDuplicateItem(this.mainStreets)){
-            dao.updateStreet(
-                    selectedStreetForUpdate.getId(),
-                    this.region.getSelectionModel().getSelectedItem(),
-                    this.city.getSelectionModel().getSelectedItem(),
-                    this.street.getText()
-                    );
+            if (getInput()) {
+                dao.updateStreet(
+                        selectedStreetForUpdate.getId(),
+                        selectedRegion,
+                        selectedCity,
+                        inputNameStreet
+                );
 
-            this.mainStreets.removeAll(this.mainStreets);
-            this.mainStreets.addAll(this.dao.getStreets());
+                this.mainStreets.removeAll(this.mainStreets);
+                this.mainStreets.addAll(this.dao.getStreets());
 
-            Dialog.successfulInfoWindow("Успех!", "Запись успешно обнавлена в справочнике");
+                Dialog.successfulInfoWindow("Успех!", "Запись успешно обнавлена в справочнике");
 
-            this.mainApp.closeWindowAddNewStreetStage();
+                this.mainApp.closeWindowAddNewStreetStage();
+            }
         } else{
             Dialog.errorWindow(
                     "Ошибка!",
@@ -110,18 +138,7 @@ public class AddNewStreetOrUpdateItController {
     public void setMainApp(MainApp mainApp){
         this.mainApp = mainApp;
         this.mainStreets = mainApp.getStreets();
-
-
-//        ObservableList<String> regions = FXCollections.observableArrayList();
-//        regions.addAll(mainApp.getStreets().stream().map(street -> {
-//            return street.getRegion();
-//        }).distinct().toList());
         this.region.setItems(mainApp.getRegions());
-
-//        ObservableList<String> cities = FXCollections.observableArrayList();
-//        cities.addAll(mainApp.getStreets().stream().map(street -> {
-//            return street.getCity();
-//        }).distinct().toList());
         this.city.setItems(mainApp.getCities());
     }
 

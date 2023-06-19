@@ -1,6 +1,5 @@
 package controllers;
 
-import main.CheckInput;
 import main.DAO;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
